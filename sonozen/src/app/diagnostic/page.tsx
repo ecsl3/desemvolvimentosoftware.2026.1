@@ -79,10 +79,10 @@ export default function DiagnosticPage() {
       const { data: { user }, error: authError } = await supabase.auth.getUser();
       if (authError || !user) throw new Error("Você precisa estar logado para fazer o diagnóstico.");
 
-      // 1. Limpeza: Deleta diagnósticos antigos do usuário para que ele possa refazer à vontade
+      // 1. Limpeza
       await supabase.from("diagnosticos_sono").delete().eq("usuario_id", user.id);
 
-      // 2. Inserção: Objeto SEM o status_processamento (evita o erro PGRST204)
+      // 2. Salva o Formulário no Banco
       const diagnosticoData = {
         usuario_id: user.id,
         idade: Number(idade),
@@ -100,15 +100,38 @@ export default function DiagnosticPage() {
         descricao_rotina_detalhada: descricaoLivre || null
       };
 
-      const { error } = await supabase.from("diagnosticos_sono").insert(diagnosticoData);
+      const { data: diagSalvo, error } = await supabase
+        .from("diagnosticos_sono")
+        .insert(diagnosticoData)
+        .select() // Precisamos do .select() para o banco nos devolver o ID gerado!
+        .single();
 
       if (error) throw new Error(error.message);
 
+      // --- NOVIDADE AQUI EMBAIXO ---
+
+      // 3. Chama a Inteligência Artificial no Backend
+      const respostaIA = await fetch("/api/diagnostico", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          diagnosticoId: diagSalvo.id, 
+          usuarioId: user.id 
+        }),
+      });
+
+      const resultadoIA = await respostaIA.json();
+
+      if (!respostaIA.ok) {
+        throw new Error("Falha ao gerar IA: " + resultadoIA.error);
+      }
+
+      // Tudo funcionou! Redireciona para ver o resultado
       router.push("/home");
 
     } catch (error: any) {
       console.error("Erro ao salvar:", error);
-      setErrorMessage(error.message || "Erro desconhecido ao tentar conectar com o banco de dados.");
+      setErrorMessage(error.message || "Erro desconhecido ao tentar conectar com a IA.");
     } finally {
       setLoading(false);
     }
