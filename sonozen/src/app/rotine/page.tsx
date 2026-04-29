@@ -1,3 +1,4 @@
+// src/app/routine/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -8,86 +9,171 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
 
-interface HistoricoItem {
-  id: string;
-  pergunta: string;
-  resposta: string;
-  created_at: string;
-}
+// Importando ícones dinâmicos do Lucide
+import { 
+  Clock, Moon, Bed, Bath, BookOpen, Utensils, 
+  Smartphone, Brain, Coffee, Calendar, CheckCircle2 
+} from "lucide-react";
 
-export default function PaginaPrincipal() {
+export default function RoutinePage() {
   const router = useRouter();
-  const [usuario, setUsuario] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [input, setInput] = useState("");
-  const [respostaAtual, setRespostaAtual] = useState("");
-  const [historico, setHistorico] = useState<HistoricoItem[]>([]);
-  const [carregandoIA, setCarregandoIA] = useState(false);
+  const [rotina, setRotina] = useState<any[]>([]);
 
   useEffect(() => {
-    async function inicializar() {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
+    async function fetchRotina() {
+      setLoading(true);
+      const { data: { user } } = await supabase.auth.getUser();
 
-        if (!user) {
-          router.push("/login");
-        } else {
-          setUsuario(user);
-          setLoading(false);
+      if (user) {
+        // Busca a rotina ordenada cronologicamente
+        const { data, error } = await supabase
+          .from("rotinas_pre_sono")
+          .select("*")
+          .eq("usuario_id", user.id)
+          .order("ordem", { ascending: true });
+
+        if (data && data.length > 0) {
+          setRotina(data);
         }
-      } catch (err) {
-        console.error("Erro na inicialização:", err);
-        setLoading(false);
       }
+      setLoading(false);
     }
-    inicializar();
-  }, [router]);
 
+    fetchRotina();
+  }, []);
+
+  // Mapeador de Ícones: A IA envia strings, nós transformamos em ícones visuais
+  const getIcon = (iconName: string) => {
+    const name = iconName?.toLowerCase() || "";
+    if (name.includes("bed") || name.includes("sleep")) return <Bed className="w-5 h-5" />;
+    if (name.includes("moon")) return <Moon className="w-5 h-5" />;
+    if (name.includes("bath") || name.includes("shower")) return <Bath className="w-5 h-5" />;
+    if (name.includes("book") || name.includes("school") || name.includes("study")) return <BookOpen className="w-5 h-5" />;
+    if (name.includes("dinner") || name.includes("food")) return <Utensils className="w-5 h-5" />;
+    if (name.includes("phone") || name.includes("screen")) return <Smartphone className="w-5 h-5" />;
+    if (name.includes("meditation") || name.includes("breath") || name.includes("brain")) return <Brain className="w-5 h-5" />;
+    if (name.includes("coffee")) return <Coffee className="w-5 h-5" />;
+    if (name.includes("calendar") || name.includes("plan")) return <Calendar className="w-5 h-5" />;
+    
+    // Fallback genérico
+    return <Clock className="w-5 h-5" />;
+  };
 
   if (loading) {
     return (
-
       <div className="min-h-screen flex flex-col md:flex-row bg-gray-950 text-white font-sans">
-      
-      {/* Layout Externo: Barra Lateral */}
-      <Sidebar />
-
-      {/* Conteúdo Principal Central */}
-      <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-        <div className="container py-6 md:py-10 max-w-4xl mx-auto px-6 space-y-8">
-          <hr className="border-gray-800" />
-            <div className="min-h-screen bg-gray-950 flex items-center justify-center text-blue-500 font-bold text-xl">
-            Carregando Sonozen...
-            </div>
-        </div>
-      </main>
-
-      {/* Layout Externo: Navegação Mobile */}
-      <MobileNav />
-
-    </div>
-
-      
+        <Sidebar />
+        <main className="flex-1 md:ml-64 flex items-center justify-center">
+          <p className="text-gray-400 animate-pulse">Carregando sua rotina estelar...</p>
+        </main>
+        <MobileNav />
+      </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gray-950 text-white font-sans">
-      
-      {/* Layout Externo: Barra Lateral */}
       <Sidebar />
 
-      {/* Conteúdo Principal Central */}
       <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-        <div className="container py-6 md:py-10 max-w-4xl mx-auto px-6 space-y-8">
-          <hr className="border-gray-800" />
+        <div className="container py-8 max-w-3xl mx-auto px-6">
+          
+          {rotina.length > 0 ? (
+            // ESTADO COM DADOS: Renderiza a Linha do Tempo (Timeline)
+            <div className="space-y-8 animate-in fade-in duration-500">
+              
+              <div className="flex items-start justify-between border-b border-gray-800 pb-4">
+                <div>
+                  <h2 className="text-3xl font-bold mb-1">Sua Rotina Pré-Sono</h2>
+                  <p className="text-gray-400 text-sm">Descompressão guiada baseada no seu diagnóstico</p>
+                </div>
+                <button 
+                  onClick={() => router.push("/diagnostic")}
+                  className="px-4 py-2 bg-gray-900 border border-gray-700 hover:border-blue-500 text-gray-300 hover:text-blue-400 rounded-xl text-sm transition flex items-center gap-2"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  Refazer
+                </button>
+              </div>
+
+              {/* Início da Linha do Tempo */}
+              <div className="relative mt-8">
+                {/* Linha vertical central/lateral */}
+                <div className="absolute left-[1.4rem] md:left-[1.9rem] top-2 bottom-2 w-px bg-gray-800"></div>
+
+                <div className="space-y-6">
+                  {rotina.map((item, index) => {
+                    const isLast = index === rotina.length - 1;
+
+                    return (
+                      <div key={item.id} className="relative flex gap-4 md:gap-6 group">
+                        
+                        {/* Ícone Redondo Flutuante */}
+                        <div className={`relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center shrink-0 border transition-all duration-300
+                          ${isLast 
+                            ? "bg-blue-600 border-blue-400 shadow-[0_0_20px_rgba(37,99,235,0.4)] text-white" 
+                            : "bg-gray-900 border-gray-700 text-blue-400 group-hover:border-blue-500 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.15)]"
+                          }`}
+                        >
+                          {getIcon(item.icone_nome)}
+                        </div>
+
+                        {/* Card de Conteúdo */}
+                        <div className="flex-1 p-5 rounded-2xl bg-gray-900/50 border border-gray-800 hover:border-gray-700 transition-colors shadow-lg">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="text-sm font-mono text-blue-400 font-bold bg-blue-950/50 px-2 py-0.5 rounded">
+                              {item.horario_inicio}
+                            </span>
+                            <span className="text-xs text-gray-500 font-medium">
+                              • {item.duracao_minutos} min
+                            </span>
+                          </div>
+                          
+                          <h4 className="text-lg font-semibold text-gray-100 mb-1">
+                            {item.atividade}
+                          </h4>
+                          <p className="text-gray-400 text-sm mb-3">
+                            {item.descricao}
+                          </p>
+                          
+                          {/* O "Por quê" em destaque suave */}
+                          <div className="bg-gray-950/50 p-3 rounded-xl border border-gray-800/50">
+                            <p className="text-xs text-gray-500 italic">
+                              <span className="font-semibold text-gray-400 not-italic">Por que fazer isso?</span> {item.por_que}
+                            </p>
+                          </div>
+                        </div>
+
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          ) : (
+            // ESTADO VAZIO (Nenhuma rotina encontrada)
+            <div className="flex flex-col items-center justify-center text-center py-20 px-4 animate-in zoom-in-95 duration-500">
+              <div className="w-24 h-24 bg-blue-900/20 border border-blue-500/30 rounded-full flex items-center justify-center mb-6">
+                <Moon className="w-10 h-10 text-blue-400" />
+              </div>
+              <h2 className="text-3xl font-bold mb-3 text-white">Nenhuma rotina encontrada</h2>
+              <p className="text-gray-400 max-w-md mb-8">
+                Sua higiene do sono ainda não foi configurada. Faça nosso diagnóstico guiado por Inteligência Artificial para receber um plano de ação personalizado.
+              </p>
+              <button 
+                onClick={() => router.push("/diagnostic")}
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold text-white transition shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95"
+              >
+                Criar minha Rotina Agora ✨
+              </button>
+            </div>
+          )}
 
         </div>
       </main>
-
-      {/* Layout Externo: Navegação Mobile */}
+      
       <MobileNav />
-
     </div>
   );
 }
