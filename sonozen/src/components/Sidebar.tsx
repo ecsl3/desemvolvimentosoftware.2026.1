@@ -23,7 +23,7 @@ export default function Sidebar() {
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
           </svg>
         </div>
-        <h1 className="text-xl font-bold text-white">SonoZen</h1>
+        <h1 className="text-xl font-bold text-white">SonoZen AI</h1>
       </div>
 
       <nav className="flex flex-col gap-1 flex-1">

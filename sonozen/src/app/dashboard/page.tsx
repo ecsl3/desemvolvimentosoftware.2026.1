@@ -57,7 +57,7 @@ export default function PaginaPrincipal() {
         <div className="container py-6 md:py-10 max-w-4xl mx-auto px-6 space-y-8">
           <hr className="border-gray-800" />
             <div className="min-h-screen bg-gray-950 flex items-center justify-center text-blue-500 font-bold text-xl">
-            Carregando Sonozen...
+            Carregando SonoZen AI...
             </div>
         </div>
       </main>

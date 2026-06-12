@@ -24,7 +24,7 @@ export default function AIChat({
         <div className="mb-6 p-5 bg-blue-950/30 border border-blue-900/50 rounded-xl animate-in fade-in duration-500">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xl">🤖</span>
-            <h3 className="font-semibold text-blue-400">Resposta do SonoZen:</h3>
+            <h3 className="font-semibold text-blue-400">Resposta do SonoZen AI:</h3>
           </div>
           
           {/* A mágica do Markdown acontece aqui */}

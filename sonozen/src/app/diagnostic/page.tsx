@@ -120,7 +120,7 @@ export default function DiagnosticPage() {
               {/* Card Resumo */}
               <div className="bg-gradient-to-br from-blue-900/40 to-gray-900 border border-blue-900/50 p-6 rounded-2xl shadow-lg">
                 <p className="text-blue-400 font-semibold mb-3 flex items-center gap-2">
-                  <span className="text-xl">🤖</span> Análise do SonoZen
+                  <span className="text-xl">🤖</span> Análise do SonoZen AI
                 </p>
                 <p className="text-gray-300 leading-relaxed">
                   {diagnosticoAtual.resumo_ia}

@@ -203,7 +203,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 1 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">Qual o seu principal objetivo com o SonoZen?</h3>
+              <h3 className="text-xl font-semibold mb-6">Qual o seu principal objetivo com o SonoZen AI?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Dormir mais rápido" value="dormir_mais_rapido" state={objetivo} setState={setObjetivo} />
                 <OptionButton label="Melhorar qualidade do sono" value="melhorar_qualidade" state={objetivo} setState={setObjetivo} />

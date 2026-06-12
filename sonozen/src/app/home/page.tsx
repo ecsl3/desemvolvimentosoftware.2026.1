@@ -115,7 +115,7 @@ export default function PaginaPrincipal() {
           <div className="container py-6 md:py-10 max-w-4xl mx-auto px-6 space-y-8">
             <hr className="border-gray-800" />
             <div className="min-h-screen bg-gray-950 flex items-center justify-center text-blue-500 font-bold text-xl animate-pulse">
-              Carregando Sonozen...
+              Carregando SonoZen AI...
             </div>
           </div>
         </main>
@@ -150,7 +150,7 @@ export default function PaginaPrincipal() {
                   {temDiagnostico ? (
                     <>Sua rotina está <span className="text-purple-400 gradient-text">Pronta</span></>
                   ) : (
-                    <>Durma melhor com <span className="text-blue-500 gradient-text">SonoZen</span></>
+                    <>Durma melhor com <span className="text-blue-500 gradient-text">SonoZen AI</span></>
                   )}
                 </h1>
                 
