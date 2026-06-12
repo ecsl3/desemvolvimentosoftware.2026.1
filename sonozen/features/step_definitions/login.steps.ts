@@ -14,7 +14,7 @@ Given('que eu estou logado com o usuário {string} e a senha {string}', async fu
   await this.page!.locator('input[type="email"]').fill(email);
   await this.page!.locator('input[type="password"]').fill(senha);
   
-  await this.page!.getByRole('button', { name: 'Acessar Conta' }).click();
+  await this.page!.getByRole('button', { name: 'Acessar conta' }).click();
   
   await this.page!.waitForURL('**/home', { timeout: 10000 });
 });
@@ -29,7 +29,7 @@ When('eu preencho o e-mail com {string} e a senha com {string}', async function 
   await this.page!.locator('input[type="password"]').fill(senha);
 });
 
-// Este passo mágico captura qualquer botão, incluindo "Acessar Conta", "Criar Conta", "Sair" e "Mostrar senha"
+// Este passo mágico captura qualquer botão, incluindo "Acessar conta", "Criar conta", "Sair" e "Mostrar senha"
 When(/^(?:eu )?clico no botão "([^"]*)"$/, async function (this: CustomWorld, textoBotao) {
   await this.page!.getByRole('button', { name: textoBotao }).click();
 });

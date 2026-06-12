@@ -9,7 +9,7 @@ Funcionalidade: Autenticação de Usuário
   Cenário: Login com sucesso
     Dado que eu estou na página de login
     Quando eu preencho o e-mail com "amanda@gmail.com" e a senha com "amanda123"
-    E clico no botão "Acessar Conta"
+    E clico no botão "Acessar conta"
     Então eu devo ser redirecionado para a página home
 
   Cenário: Visualizar a senha inserida
@@ -22,13 +22,13 @@ Funcionalidade: Autenticação de Usuário
     Dado que eu estou na página de login
     E eu clico na aba "Cadastrar"
     Quando eu preencho o e-mail com "amanda@gmail.com" e a senha com "novaSenha123"
-    E clico no botão "Criar Conta"
+    E clico no botão "Criar conta"
     Então eu devo ver uma mensagem de erro de usuário já registrado
 
   Cenário: Login com senha incorreta
     Dado que eu estou na página de login
     Quando eu preencho o e-mail com "amanda@gmail.com" e a senha com "amanda12"
-    E clico no botão "Acessar Conta"
+    E clico no botão "Acessar conta"
     Então eu devo ver uma mensagem de erro
 
   Cenário: Logout
