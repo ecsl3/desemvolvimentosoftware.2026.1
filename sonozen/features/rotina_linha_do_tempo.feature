@@ -10,8 +10,8 @@ Funcionalidade: Exibição da Rotina Pré-Sono
     Dado que estou autenticado na plataforma
     Mas eu ainda não processei nenhum diagnóstico
     Quando eu acesso a página "/rotine"
-    Então eu devo ver a mensagem "Nenhuma rotina encontrada"
-    E um botão "Criar minha Rotina Agora" que redireciona para "/diagnostic"
+    Então eu devo ver a mensagem "Comece sua rotina pré-sono"
+    E um botão "Criar minha rotina" que redireciona para "/diagnostic"
 
   Cenário: Ordenação cronológica das atividades
     Dado que eu possuo uma rotina gerada pela IA
