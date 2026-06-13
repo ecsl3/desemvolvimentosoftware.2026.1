@@ -111,13 +111,10 @@ export default function PaginaPrincipal() {
     return (
       <div className="min-h-screen flex flex-col md:flex-row bg-gray-950 text-white font-sans">
         <Sidebar />
-        <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-          <div className="container py-6 md:py-10 max-w-4xl mx-auto px-6 space-y-8">
-            <hr className="border-gray-800" />
-            <div className="min-h-screen bg-gray-950 flex items-center justify-center text-blue-500 font-bold text-xl animate-pulse">
-              Carregando SonoZen AI...
-            </div>
-          </div>
+        <main className="flex-1 md:ml-64 pb-20 md:pb-0 flex items-center justify-center">
+          <p className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">
+            Carregando SonoZen AI...
+          </p>
         </main>
         <MobileNav />
       </div>
