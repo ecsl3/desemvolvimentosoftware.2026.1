@@ -22,6 +22,6 @@ Funcionalidade: Preenchimento do Diagnóstico de Sono
   Cenário: Refazer diagnóstico existente
     Dado que eu já possuo um diagnóstico salvo no banco de dados
     E estou na página de resultado do diagnóstico
-    Quando eu clico no botão "Refazer Diagnóstico"
+    Quando eu clico no botão "Refazer"
     Então o sistema deve me redirecionar para a etapa 1 do formulário
     E ao submeter o novo diagnóstico, os dados antigos devem ser substituídos
