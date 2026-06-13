@@ -9,7 +9,7 @@ export default function Header({ usuario, onDeslogar }: HeaderProps) {
   return (
     <section className="flex justify-between items-center bg-gray-900 p-4 rounded-xl shadow-lg border border-gray-800">
       <div className="text-left">
-        <h1 className="text-2xl font-bold text-blue-500">Consultor de Sono IA</h1>
+        <h1 className="font-display text-2xl font-semibold text-blue-500">Consultor de Sono IA</h1>
         <p className="text-xs text-gray-400">
           Conectado como: <span className="text-gray-300">{usuario?.email}</span>
         </p>
