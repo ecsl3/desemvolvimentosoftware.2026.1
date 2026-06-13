@@ -1,5 +1,6 @@
 // src/components/AIChat.tsx
 import ReactMarkdown from "react-markdown";
+import Logo from "./Logo";
 
 interface AIChatProps {
   input: string;
@@ -21,9 +22,9 @@ export default function AIChat({
       
       {/* 1. Área da Resposta Atual (Ao Vivo) */}
       {respostaAtual && (
-        <div className="mb-6 p-5 bg-blue-950/30 border border-blue-900/50 rounded-xl animate-in fade-in duration-500">
+        <div className="mb-6 p-5 bg-gray-950/50 border border-gray-800 rounded-xl animate-in fade-in duration-500">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xl">🤖</span>
+            <Logo className="w-5 h-5 text-blue-500 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]" />
             <h3 className="font-semibold text-blue-400">Resposta do SonoZen AI:</h3>
           </div>
           
@@ -62,7 +63,7 @@ export default function AIChat({
         <button
           onClick={enviarPergunta}
           disabled={!input.trim() || carregandoIA}
-          className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-800 disabled:text-gray-500 text-white px-6 py-3 rounded-xl font-semibold transition shadow-lg active:scale-95 flex items-center justify-center min-w-[140px]"
+          className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-800 disabled:text-gray-500 disabled:shadow-none text-white px-6 py-3 rounded-xl font-semibold transition shadow-[0_0_20px_rgba(37,99,235,0.3)] active:scale-95 flex items-center justify-center min-w-[140px]"
         >
           {carregandoIA ? (
             <span className="flex items-center gap-2">
