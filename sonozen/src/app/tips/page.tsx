@@ -147,7 +147,7 @@ export default function DicasPage() {
             <h2 className="font-display text-3xl font-semibold mb-2 text-white">Central de Dicas</h2>
             <p className="text-gray-400 text-sm">
               {temDiagnostico 
-                ? "Conhecimentos selecionados e criados sob medida pela Inteligência Artificial baseados na sua rotina." 
+                ? "Dicas personalizadas pela IA com base na sua rotina." 
                 : "Práticas essenciais para você começar a dormir melhor hoje."}
             </p>
           </div>
