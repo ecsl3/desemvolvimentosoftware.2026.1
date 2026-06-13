@@ -12,7 +12,7 @@ export default function MobileNav() {
         {/* Início */}
         <Link href="/home" className="flex flex-col items-center gap-1 min-w-[50px] text-blue-500">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M9 22V12h6v10"></path>
           </svg>
           <span className="text-[10px] font-medium">Início</span>
         </Link>
