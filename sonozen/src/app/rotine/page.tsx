@@ -13,7 +13,7 @@ import Logo from "../../components/Logo";
 // Importando ícones dinâmicos do Lucide
 import {
   Clock, Moon, Bed, Bath, BookOpen, Utensils,
-  Smartphone, Brain, Coffee, Calendar, CheckCircle2, ArrowRight
+  Smartphone, Brain, Coffee, Calendar, RotateCcw, ArrowRight
 } from "lucide-react";
 
 export default function RoutinePage() {
@@ -86,14 +86,14 @@ export default function RoutinePage() {
               
               <div className="flex items-start justify-between border-b border-gray-800 pb-4">
                 <div>
-                  <h2 className="text-3xl font-bold mb-1">Sua Rotina Pré-Sono</h2>
-                  <p className="text-gray-400 text-sm">Descompressão guiada baseada no seu diagnóstico</p>
+                  <h2 className="font-display text-3xl font-semibold mb-1">Sua Rotina Pré-Sono</h2>
+                  <p className="text-gray-400 text-sm">Seu plano guiado para desacelerar antes de dormir.</p>
                 </div>
                 <button 
                   onClick={() => router.push("/diagnostic")}
                   className="px-4 py-2 bg-gray-900 border border-gray-700 hover:border-blue-500 text-gray-300 hover:text-blue-400 rounded-xl text-sm transition flex items-center gap-2"
                 >
-                  <CheckCircle2 className="w-4 h-4" />
+                  <RotateCcw className="w-4 h-4" />
                   Refazer
                 </button>
               </div>
