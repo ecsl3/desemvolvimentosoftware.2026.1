@@ -14,7 +14,7 @@ import HistoryList from "../../components/HistoryList";
 import CeuEstrelado from "../../components/CeuEstrelado";
 import Logo from "../../components/Logo";
 
-import { ArrowRight, ClipboardList, Sparkles, BarChart3, Lightbulb, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ClipboardList, Sparkles, BarChart3, Lightbulb } from "lucide-react";
 
 interface HistoricoItem {
   id: string;
@@ -138,16 +138,14 @@ export default function PaginaPrincipal() {
               <CeuEstrelado />
               <div className="relative z-10 px-4">
                 {temDiagnostico ? (
-                  <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 bg-purple-600 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
-                    <CheckCircle2 className="w-10 h-10 text-white" />
-                  </div>
+                  <Logo className="w-20 h-20 text-purple-500 mx-auto mb-6 block drop-shadow-[0_0_12px_rgba(192,132,252,0.5)]" />
                 ) : (
                   <Logo className="w-20 h-20 text-blue-500 mx-auto mb-6 block drop-shadow-[0_0_12px_rgba(96,165,250,0.5)]" />
                 )}
                 
                 <h1 className="text-4xl md:text-5xl font-display font-semibold mb-4 text-white">
                   {temDiagnostico ? (
-                    <>Sua rotina está <span className="text-purple-400">Pronta</span></>
+                    <>Sua rotina está <span className="text-purple-500">pronta</span></>
                   ) : (
                     <>Durma melhor com <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">SonoZen AI</span></>
                   )}
@@ -155,7 +153,7 @@ export default function PaginaPrincipal() {
                 
                 <p className="text-gray-400 text-lg max-w-xl mx-auto mb-8">
                   {temDiagnostico 
-                    ? "A Inteligência Artificial já traçou seu plano de ação para esta noite. Siga sua linha do tempo e descanse."
+                    ? "Nossa IA já traçou seu plano para esta noite. Siga sua linha do tempo e descanse."
                     : "Personalize sua rotina noturna e conquiste o sono profundo que seu corpo precisa."
                   }
                 </p>
@@ -164,14 +162,14 @@ export default function PaginaPrincipal() {
                   {temDiagnostico ? (
                     <>
                       <Link href="/rotine">
-                        <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 h-12 px-8 py-6 text-base font-medium rounded-xl text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all active:scale-95">
-                          Seguir Minha Rotina
+                        <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 h-12 px-8 py-6 text-base font-medium rounded-xl text-white shadow-[0_0_25px_rgba(168,85,247,0.25)] transition-all hover:scale-105 active:scale-95">
+                          Seguir minha rotina
                           <ArrowRight className="ml-2 w-5 h-5" />
                         </button>
                       </Link>
                       <Link href="/diagnostic">
                         <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-transparent border border-gray-700 hover:border-gray-500 hover:bg-gray-800/50 h-12 px-8 py-6 text-base font-medium rounded-xl text-gray-300 transition-all active:scale-95">
-                          Revisar Diagnóstico
+                          Revisar diagnóstico
                         </button>
                       </Link>
                     </>
@@ -193,10 +191,10 @@ export default function PaginaPrincipal() {
                 <div className="p-6 rounded-xl bg-gray-900 border border-gray-800 border-t-2 border-t-blue-500/60 transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(37,99,235,0.15)] h-full">
                   <ClipboardList className="w-8 h-8 text-blue-500 mb-6" />
                   <h3 className="font-display font-semibold text-lg mb-1 text-gray-200">
-                    {temDiagnostico ? "Meu Diagnóstico" : "Diagnóstico de Sono"}
+                    {temDiagnostico ? "Seu Diagnóstico" : "Diagnóstico de Sono"}
                   </h3>
                   <p className="text-gray-500 text-sm">
-                    {temDiagnostico ? "Veja sua pontuação e fatores de risco" : "Descubra o que sabota seu sono"}
+                    {temDiagnostico ? "Entenda seu resultado em detalhes" : "Descubra o que sabota seu sono"}
                   </p>
                 </div>
               </Link>
@@ -206,7 +204,7 @@ export default function PaginaPrincipal() {
                   <Sparkles className="w-8 h-8 text-purple-500 mb-6" />
                   <h3 className="font-display font-semibold text-lg mb-1 text-gray-200">Rotina Personalizada</h3>
                   <p className="text-gray-500 text-sm">
-                    {temDiagnostico ? "Siga seu plano para esta noite" : "Gere sua rotina noturna ideal"}
+                    {temDiagnostico ? "Coloque sua rotina em prática" : "Gere sua rotina noturna ideal"}
                   </p>
                 </div>
               </Link>
@@ -224,7 +222,7 @@ export default function PaginaPrincipal() {
                   <Lightbulb className="w-8 h-8 text-orange-500 mb-6" />
                   <h3 className="font-display font-semibold text-lg mb-1 text-gray-200">Central de Dicas</h3>
                   <p className="text-gray-500 text-sm">
-                    {temDiagnostico ? "Veja dicas personalizadas pela IA" : "Aprenda técnicas de relaxamento"}
+                    {temDiagnostico ? "Aplique as dicas no seu dia a dia" : "Aprenda técnicas de relaxamento"}
                   </p>
                 </div>
               </Link>
