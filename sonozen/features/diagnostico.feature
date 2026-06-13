@@ -1,6 +1,6 @@
 # language: pt
 
-Funcionalidade: Preenchimento do Diagnóstico de Hábitos
+Funcionalidade: Preenchimento do Diagnóstico de Sono
   Como um usuário do SonoZen
   Quero preencher um formulário passo a passo sobre meus hábitos
   Para que a IA possa gerar uma rotina de sono personalizada
@@ -15,8 +15,8 @@ Funcionalidade: Preenchimento do Diagnóstico de Hábitos
   Cenário: Submissão do formulário com sucesso
     Dado que estou na última etapa do diagnóstico
     E preenchi todos os campos obrigatórios anteriores
-    Quando eu clico em "Gerar Diagnóstico Mágico"
-    Então o sistema deve exibir o estado de "Salvando..."
+    Quando eu clico em "Gerar diagnóstico"
+    Então o sistema deve exibir o estado de "Processando IA..."
     E eu devo ser redirecionado para a página "/home" após a conclusão
 
   Cenário: Refazer diagnóstico existente

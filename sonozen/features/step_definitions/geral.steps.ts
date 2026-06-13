@@ -82,7 +82,7 @@ Given('estou na página de resultado do diagnóstico', async function (this: Cus
 });
 
 Then('o sistema deve me redirecionar para a etapa 1 do formulário', async function (this: CustomWorld) {
-  await this.page!.waitForSelector('h3:has-text("1. Dados Pessoais")');
+  await this.page!.waitForSelector('h3:has-text("Dados Pessoais")');
 });
 
 Then('ao submeter o novo diagnóstico, os dados antigos devem ser substituídos', async function (this: CustomWorld) {
