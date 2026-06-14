@@ -78,7 +78,7 @@ export default function RoutinePage() {
       <Sidebar />
 
       <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-        <div className="container py-8 max-w-3xl mx-auto px-6">
+        <div className="container py-6 md:py-10 max-w-3xl mx-auto px-6">
           
           {rotina.length > 0 ? (
             // ESTADO COM DADOS: Renderiza a Linha do Tempo (Timeline)
