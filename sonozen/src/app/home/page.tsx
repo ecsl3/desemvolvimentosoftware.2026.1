@@ -2,35 +2,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { perguntarParaIA } from "../actions";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
-import AIChat from "../../components/AIChat";
-import HistoryList from "../../components/HistoryList";
 import CeuEstrelado from "../../components/CeuEstrelado";
 import Logo from "../../components/Logo";
 
 import { ArrowRight, ClipboardList, Sparkles, BarChart3, Lightbulb } from "lucide-react";
 
-interface HistoricoItem {
-  id: string;
-  pergunta: string;
-  resposta: string;
-  created_at: string;
-}
-
 export default function PaginaPrincipal() {
   const router = useRouter();
   const [usuario, setUsuario] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [input, setInput] = useState("");
-  const [respostaAtual, setRespostaAtual] = useState("");
-  const [historico, setHistorico] = useState<HistoricoItem[]>([]);
-  const [carregandoIA, setCarregandoIA] = useState(false);
   
   // Novo estado para controlar se a pessoa já fez o diagnóstico
   const [temDiagnostico, setTemDiagnostico] = useState(false);
@@ -55,16 +41,7 @@ export default function PaginaPrincipal() {
   }, [router]);
 
   async function carregarDados(userId: string) {
-    // 1. Carrega o Histórico do Chat
-    const { data: histData } = await supabase
-      .from("historico")
-      .select("*")
-      .eq("usuario_id", userId)
-      .order("created_at", { ascending: false });
-
-    if (histData) setHistorico(histData);
-
-    // 2. Verifica se o usuário tem um diagnóstico processado
+    // 1. Verifica se o usuário tem um diagnóstico processado
     const { data: diagData } = await supabase
       .from("diagnosticos_sono")
       .select("id, processado_ia")
@@ -80,33 +57,6 @@ export default function PaginaPrincipal() {
     }
 
     setLoading(false);
-  }
-
-  async function enviarPergunta() {
-    if (!input || !usuario) return;
-
-    setCarregandoIA(true);
-    try {
-      const textoIA = await perguntarParaIA(input);
-      setRespostaAtual(textoIA);
-
-      const { error } = await supabase.from("historico").insert([
-        { pergunta: input, resposta: textoIA, usuario_id: usuario.id },
-      ]);
-
-      if (error) throw error;
-
-      setInput("");
-      // Recarrega apenas o histórico após a pergunta
-      const { data } = await supabase.from("historico").select("*").eq("usuario_id", usuario.id).order("created_at", { ascending: false });
-      if (data) setHistorico(data);
-      
-    } catch (err) {
-      console.error("Erro:", err);
-      alert("Erro ao processar sua solicitação.");
-    } finally {
-      setCarregandoIA(false);
-    }
   }
 
   if (loading) {
@@ -227,26 +177,6 @@ export default function PaginaPrincipal() {
                 </div>
               </Link>
             </section>
-          </div>
-
-          <hr className="border-gray-800/50" />
-
-          {/* CHAT COM A IA */}
-          <div className="space-y-8">
-            <div>
-              <h2 className="font-display text-2xl font-semibold text-white mb-2">Assistente Virtual</h2>
-              <p className="text-gray-400 text-sm">Tire dúvidas rápidas sobre sono e relaxamento com a nossa IA.</p>
-            </div>
-            
-            <AIChat 
-              input={input} 
-              setInput={setInput} 
-              enviarPergunta={enviarPergunta} 
-              carregandoIA={carregandoIA} 
-              respostaAtual={respostaAtual} 
-            />
-
-            <HistoryList historico={historico} />
           </div>
 
         </div>
