@@ -80,7 +80,7 @@ export default function DiagnosticPage() {
       <Sidebar />
 
       <main className="flex-1 md:ml-64 pb-20 md:pb-0 flex flex-col">
-        <div className="container py-6 md:py-10 max-w-4xl flex-1 flex flex-col px-6">
+        <div className="container py-6 md:py-10 max-w-4xl mx-auto flex-1 flex flex-col px-6">
           
           {diagnosticoAtual && !isRefazendo ? (
             <div className="max-w-2xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
