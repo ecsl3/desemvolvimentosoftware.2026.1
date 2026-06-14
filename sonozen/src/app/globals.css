@@ -10,6 +10,20 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+
+  /* Cintilação lenta das estrelas do céu de fundo */
+  --animate-cintilar: cintilar 6s ease-in-out infinite;
+
+  @keyframes cintilar {
+    0%,
+    100% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.9;
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {

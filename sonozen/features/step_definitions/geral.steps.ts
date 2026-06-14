@@ -82,7 +82,7 @@ Given('estou na página de resultado do diagnóstico', async function (this: Cus
 });
 
 Then('o sistema deve me redirecionar para a etapa 1 do formulário', async function (this: CustomWorld) {
-  await this.page!.waitForSelector('h3:has-text("1. Dados Pessoais")');
+  await this.page!.waitForSelector('h3:has-text("Dados Pessoais")');
 });
 
 Then('ao submeter o novo diagnóstico, os dados antigos devem ser substituídos', async function (this: CustomWorld) {
@@ -260,7 +260,7 @@ Given('que estou autenticado na plataforma', async function (this: CustomWorld) 
   await this.page!.goto('http://localhost:3000/login');
   await this.page!.locator('input[type="email"]').fill('amanda@gmail.com');
   await this.page!.locator('input[type="password"]').fill('amanda123');
-  await this.page!.getByRole('button', { name: 'Acessar Conta' }).click();
+  await this.page!.getByRole('button', { name: 'Acessar conta' }).click();
   await this.page!.waitForURL('**/home', { timeout: 10000 });
 });
 
@@ -337,7 +337,7 @@ When('o backend processa minha mensagem e gera uma resposta', async function (th
 
 Then('a resposta do suporte deve aparecer na janela de chat em um formato claro e amigável', async function (this: CustomWorld) {
   // Espera aparecer a tag principal de resposta (ReactMarkdown renderizado)
-  const tituloResposta = this.page!.getByText('Resposta do SonoZen:');
+  const tituloResposta = this.page!.getByText('Resposta do SonoZen AI:');
   await tituloResposta.waitFor({ state: 'visible' });
   assert(await tituloResposta.isVisible(), "A resposta formatada não apareceu na tela.");
 });

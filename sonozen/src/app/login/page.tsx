@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
+import Logo from "../../components/Logo";
+import CeuEstrelado from "../../components/CeuEstrelado";
 
 // Ícones SVG para o botão de mostrar/ocultar senha
 const EyeIcon = () => (
@@ -56,14 +58,19 @@ export default function AuthPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-950 flex items-center justify-center p-6 text-white font-sans">
+    <main className="relative isolate min-h-screen bg-gray-950 flex items-center justify-center p-6 text-white font-sans">
+
+      {/* Céu estrelado de fundo */}
+      <CeuEstrelado />
+
       <div className="w-full max-w-md bg-gray-900 border border-gray-800 p-8 rounded-2xl shadow-2xl space-y-6">
-        
+
         {/* Logo/Título */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-blue-500">Sonozen AI</h1>
+          <Logo className="w-14 h-14 text-blue-500 mx-auto" />
+          <h1 className="font-display text-3xl font-semibold">SonoZen AI</h1>
           <p className="text-gray-400 text-sm">
-            {isLogin ? "Bem-vindo de volta!" : "Crie sua conta gratuita"}
+            {isLogin ? "Que bom te ver novamente." : "Cadastre-se grátis e comece a usar."}
           </p>
         </div>
 
@@ -123,14 +130,14 @@ export default function AuthPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold text-white shadow-lg shadow-blue-900/20 transition transform active:scale-95 disabled:bg-gray-700 disabled:text-gray-500"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold text-white shadow-[0_0_25px_rgba(37,99,235,0.25)] transition transform active:scale-95 disabled:bg-gray-700 disabled:text-gray-500 disabled:shadow-none"
           >
-            {loading ? "Processando..." : isLogin ? "Acessar Conta" : "Criar Conta"}
+            {loading ? "Processando..." : isLogin ? "Acessar conta" : "Criar conta"}
           </button>
         </form>
 
         <p className="text-center text-xs text-gray-600">
-          Ao continuar, você concorda com os termos de uso do Sonozen.
+          Ao continuar, você concorda com os termos de uso do SonoZen AI.
         </p>
       </div>
     </main>

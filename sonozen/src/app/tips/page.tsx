@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 // Importando os componentes modulares
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
+import Logo from "../../components/Logo";
 
 // 1. Tipagem ajustada para aceitar IDs de texto (UUID da dica personalizada) ou número (Genérica)
 interface Dica {
@@ -126,9 +127,8 @@ export default function DicasPage() {
       <div className="min-h-screen flex flex-col md:flex-row bg-gray-950 text-white font-sans">
         <Sidebar />
         <main className="flex-1 md:ml-64 pb-20 md:pb-0 flex items-center justify-center">
-          <div className="text-blue-500 font-bold text-xl animate-pulse flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>
-            Carregando SonoZen...
+          <div className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">
+            Carregando SonoZen AI...
           </div>
         </main>
         <MobileNav />
@@ -141,22 +141,22 @@ export default function DicasPage() {
       <Sidebar />
 
       <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-        <div className="container py-8 md:py-12 max-w-3xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
+        <div className="container py-6 md:py-10 max-w-3xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
           
           <div className="border-b border-gray-800 pb-6">
-            <h2 className="text-3xl font-bold mb-2 text-white">Central de Dicas</h2>
+            <h2 className="font-display text-3xl font-semibold mb-2 text-white">Central de Dicas</h2>
             <p className="text-gray-400 text-sm">
               {temDiagnostico 
-                ? "Conhecimentos selecionados e criados sob medida pela Inteligência Artificial baseados na sua rotina." 
-                : "Práticas fundamentais de higiene do sono para começar a melhorar suas noites."}
+                ? "Dicas personalizadas pela IA com base na sua rotina." 
+                : "Práticas essenciais para você começar a dormir melhor hoje."}
             </p>
           </div>
 
           {!temDiagnostico && (
             <div className="bg-blue-900/20 border border-blue-900/50 p-4 rounded-xl flex items-center gap-4">
-              <span className="text-2xl">🤖</span>
+              <Logo className="w-7 h-7 text-blue-500 shrink-0" />
               <p className="text-sm text-blue-200">
-                Você está vendo as dicas padrão. Faça seu diagnóstico para receber conteúdo exclusivo sobre os seus próprios hábitos.
+                Você está vendo as dicas padrão. Faça o diagnóstico para desbloquear dicas personalizadas pela IA.
               </p>
             </div>
           )}

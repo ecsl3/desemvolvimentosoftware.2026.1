@@ -15,11 +15,11 @@ interface HistoryListProps {
 export default function HistoryList({ historico }: HistoryListProps) {
   return (
     <section className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-400 flex items-center gap-2">
-        Seu Histórico Recente
+      <h2 className="font-display text-xl font-semibold text-gray-400">
+        Seu Histórico
       </h2>
       {historico.length === 0 && (
-        <p className="text-gray-600 italic">Nenhuma pergunta feita ainda. Comece sua jornada acima!</p>
+        <p className="text-gray-600 italic">Nenhuma conversa por aqui ainda. Faça sua primeira pergunta no chat acima.</p>
       )}
       <div className="space-y-4">
         {historico.map((item) => (

@@ -8,11 +8,12 @@ import { useRouter } from "next/navigation";
 // Importando os componentes modulares
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
+import Logo from "../../components/Logo";
 
 // Importando ícones dinâmicos do Lucide
-import { 
-  Clock, Moon, Bed, Bath, BookOpen, Utensils, 
-  Smartphone, Brain, Coffee, Calendar, CheckCircle2 
+import {
+  Clock, Moon, Bed, Bath, BookOpen, Utensils,
+  Smartphone, Brain, Coffee, Calendar, RotateCcw, ArrowRight
 } from "lucide-react";
 
 export default function RoutinePage() {
@@ -65,7 +66,7 @@ export default function RoutinePage() {
       <div className="min-h-screen flex flex-col md:flex-row bg-gray-950 text-white font-sans">
         <Sidebar />
         <main className="flex-1 md:ml-64 flex items-center justify-center">
-          <p className="text-gray-400 animate-pulse">Carregando sua rotina estelar...</p>
+          <p className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">Carregando SonoZen AI...</p>
         </main>
         <MobileNav />
       </div>
@@ -77,7 +78,7 @@ export default function RoutinePage() {
       <Sidebar />
 
       <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-        <div className="container py-8 max-w-3xl mx-auto px-6">
+        <div className="container py-6 md:py-10 max-w-3xl mx-auto px-6">
           
           {rotina.length > 0 ? (
             // ESTADO COM DADOS: Renderiza a Linha do Tempo (Timeline)
@@ -85,14 +86,14 @@ export default function RoutinePage() {
               
               <div className="flex items-start justify-between border-b border-gray-800 pb-4">
                 <div>
-                  <h2 className="text-3xl font-bold mb-1">Sua Rotina Pré-Sono</h2>
-                  <p className="text-gray-400 text-sm">Descompressão guiada baseada no seu diagnóstico</p>
+                  <h2 className="font-display text-3xl font-semibold mb-1">Sua Rotina Pré-Sono</h2>
+                  <p className="text-gray-400 text-sm">Seu plano guiado para desacelerar antes de dormir.</p>
                 </div>
                 <button 
                   onClick={() => router.push("/diagnostic")}
                   className="px-4 py-2 bg-gray-900 border border-gray-700 hover:border-blue-500 text-gray-300 hover:text-blue-400 rounded-xl text-sm transition flex items-center gap-2"
                 >
-                  <CheckCircle2 className="w-4 h-4" />
+                  <RotateCcw className="w-4 h-4" />
                   Refazer
                 </button>
               </div>
@@ -154,18 +155,17 @@ export default function RoutinePage() {
           ) : (
             // ESTADO VAZIO (Nenhuma rotina encontrada)
             <div className="flex flex-col items-center justify-center text-center py-20 px-4 animate-in zoom-in-95 duration-500">
-              <div className="w-24 h-24 bg-blue-900/20 border border-blue-500/30 rounded-full flex items-center justify-center mb-6">
-                <Moon className="w-10 h-10 text-blue-400" />
-              </div>
-              <h2 className="text-3xl font-bold mb-3 text-white">Nenhuma rotina encontrada</h2>
+              <Logo className="w-24 h-24 text-blue-500 mb-6 drop-shadow-[0_0_16px_rgba(96,165,250,0.5)]" />
+              <h2 className="font-display text-3xl font-semibold mb-3 text-white">Comece sua rotina pré-sono</h2>
               <p className="text-gray-400 max-w-md mb-8">
-                Sua higiene do sono ainda não foi configurada. Faça nosso diagnóstico guiado por Inteligência Artificial para receber um plano de ação personalizado.
+                Sua rotina ainda não foi criada. Faça o diagnóstico e receba um plano pré-sono sob medida da nossa IA.
               </p>
               <button 
                 onClick={() => router.push("/diagnostic")}
-                className="px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold text-white transition shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold text-white transition-all shadow-[0_0_25px_rgba(37,99,235,0.25)] hover:scale-105 active:scale-95"
               >
-                Criar minha Rotina Agora ✨
+                Criar minha rotina
+                <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           )}

@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useRouter } from "next/navigation";
+import { Lightbulb, ArrowRight } from "lucide-react";
 
 // Definimos as propriedades que este formulário pode receber
 interface DiagnosticFormProps {
@@ -154,7 +155,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
     return (
       <div className="mt-6 border border-blue-900/50 rounded-xl overflow-hidden transition-all duration-300">
         <button type="button" onClick={() => setIsOpen(!isOpen)} className="w-full p-4 flex items-center justify-between bg-blue-950/20 hover:bg-blue-950/40 text-blue-300 text-sm font-medium transition-colors focus:outline-none">
-          <span className="flex items-center gap-2"><span className="text-lg">💡</span> O que a ciência diz?</span>
+          <span className="flex items-center gap-2"><Lightbulb className="w-4 h-4 text-blue-300" /> O que a ciência diz?</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}><path d="m6 9 6 6 6-6"/></svg>
         </button>
         {isOpen && <div className="p-4 bg-blue-950/10 text-sm text-blue-200 border-t border-blue-900/50 leading-relaxed animate-in slide-in-from-top-2 duration-200">{texto}</div>}
@@ -165,8 +166,8 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
   return (
     <div className="max-w-xl mx-auto w-full space-y-8 animate-in fade-in duration-500">
       <div>
-        <h2 className="text-2xl font-bold mb-2">Diagnóstico de Hábitos</h2>
-        <p className="text-gray-400 text-sm">Responda para personalizar sua rotina</p>
+        <h2 className="font-display text-2xl font-semibold mb-2">Diagnóstico de Sono</h2>
+        <p className="text-gray-400 text-sm">Suas respostas guiam a IA na criação da sua rotina ideal.</p>
       </div>
       
       <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
@@ -180,7 +181,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
           {/* --- BLOCO DAS PERGUNTAS (1 A 11) --- */}
           {currentStep === 0 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">1. Dados Pessoais</h3>
+              <h3 className="text-xl font-semibold mb-6">Dados Pessoais</h3>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <label className="text-sm text-gray-300">Qual a sua idade?</label>
@@ -203,7 +204,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 1 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">Qual o seu principal objetivo com o SonoZen?</h3>
+              <h3 className="text-xl font-semibold mb-6">Objetivo: Qual a sua principal meta com o SonoZen AI?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Dormir mais rápido" value="dormir_mais_rapido" state={objetivo} setState={setObjetivo} />
                 <OptionButton label="Melhorar qualidade do sono" value="melhorar_qualidade" state={objetivo} setState={setObjetivo} />
@@ -215,7 +216,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 2 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">2. Cronotipo: A que horas você costuma ir para a cama?</h3>
+              <h3 className="text-xl font-semibold mb-6">Cronotipo: A que horas você costuma ir para a cama?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Antes das 22:00" value="antes_22h" state={horario} setState={setHorario} />
                 <OptionButton label="Entre 22:00 e 00:00" value="entre_22h_00h" state={horario} setState={setHorario} />
@@ -228,7 +229,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 3 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">3. Latência: Quanto tempo leva para dormir após apagar as luzes?</h3>
+              <h3 className="text-xl font-semibold mb-6">Latência: Quanto tempo leva para dormir após apagar as luzes?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Até 15 minutos (Excelente)" value="ate_15min" state={latencia} setState={setLatencia} />
                 <OptionButton label="15 a 30 minutos (Normal)" value="15_a_30min" state={latencia} setState={setLatencia} />
@@ -241,7 +242,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 4 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">4. Fragmentação: Quantas vezes você acorda durante a noite?</h3>
+              <h3 className="text-xl font-semibold mb-6">Fragmentação: Quantas vezes você acorda durante a noite?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Nenhuma vez" value="nenhuma" state={fragmentacao} setState={setFragmentacao} />
                 <OptionButton label="1 a 2 vezes (Leve)" value="1_a_2_vezes" state={fragmentacao} setState={setFragmentacao} />
@@ -254,7 +255,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 5 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">5. Higiene do Sono: Último consumo de cafeína/estimulantes?</h3>
+              <h3 className="text-xl font-semibold mb-6">Estimulantes: Quando foi seu último consumo de cafeína?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Não consumo ou apenas pela manhã" value="nao_consumo_manha" state={cafeina} setState={setCafeina} />
                 <OptionButton label="Até as 15:00" value="ate_15h" state={cafeina} setState={setCafeina} />
@@ -267,7 +268,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 6 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">6. Higiene do Sono: Uso de telas nos 30 minutos antes de deitar?</h3>
+              <h3 className="text-xl font-semibold mb-6">Luz Azul: Uso de telas nos 30 minutos antes de deitar?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Não utilizo (Detox digital)" value="desligo_1h_antes" state={telas} setState={setTelas} />
                 <OptionButton label="Uso apenas para tarefas rápidas" value="desligo_ao_deitar" state={telas} setState={setTelas} />
@@ -280,7 +281,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 7 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">7. Estado Mental: Ao deitar, como são seus pensamentos?</h3>
+              <h3 className="text-xl font-semibold mb-6">Estado Mental: Ao deitar, como são seus pensamentos?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Mente calma e relaxada" value="mente_calma" state={mental} setState={setMental} />
                 <OptionButton label="Pensamentos leves sobre o dia" value="planejando_amanha" state={mental} setState={setMental} />
@@ -293,7 +294,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 8 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">8. Sonolência Diurna: Como você se sente durante suas atividades?</h3>
+              <h3 className="text-xl font-semibold mb-6">Sonolência Diurna: Como você se sente durante suas atividades?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Disposto e alerta" value="disposto" state={sonolencia} setState={setSonolencia} />
                 <OptionButton label="Cansaço leve em momentos parados" value="cansaco_leve" state={sonolencia} setState={setSonolencia} />
@@ -306,7 +307,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 9 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">9. Ambiente Sensorial: Como você avalia o local onde dorme?</h3>
+              <h3 className="text-xl font-semibold mb-6">Ambiente Sensorial: Como você avalia o local onde dorme?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Ambiente perfeito (escuro, frio e silencioso)" value="ideal" state={ambiente} setState={setAmbiente} />
                 <OptionButton label="Pequenos incômodos ocasionais" value="aceitavel" state={ambiente} setState={setAmbiente} />
@@ -319,7 +320,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 10 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">10. Nível de Cansaço Diurno: Como você se sente durante o dia?</h3>
+              <h3 className="text-xl font-semibold mb-6">Nível de Cansaço Diurno: Como você se sente durante o dia?</h3>
               <div className="grid gap-3">
                 <OptionButton label="Disposto e alerta o dia todo" value="disposto" state={cansaco} setState={setCansaco} />
                 <OptionButton label="Cansaço leve no fim da tarde" value="cansaco_leve" state={cansaco} setState={setCansaco} />
@@ -332,7 +333,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
 
           {currentStep === 11 && (
             <div>
-              <h3 className="text-xl font-semibold mb-6">11. Algo mais que devamos saber? (Opcional)</h3>
+              <h3 className="text-xl font-semibold mb-6">Observações: Algo mais que devamos saber? (Opcional)</h3>
               <p className="text-sm text-gray-400 mb-4">
                 Sinta-se à vontade para descrever a sua rotina com mais detalhes. A IA usará este texto para personalizar ainda mais o seu diagnóstico.
               </p>
@@ -376,9 +377,14 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
               type="button"
               onClick={handleSubmit}
               disabled={loading}
-              className="px-6 py-3 bg-green-600 hover:bg-green-500 rounded-xl font-bold text-white transition disabled:opacity-50 flex items-center gap-2"
+              className="px-6 py-3 bg-green-600 hover:bg-green-500 rounded-xl font-bold text-white transition shadow-[0_0_20px_rgba(34,197,94,0.3)] disabled:opacity-50 disabled:shadow-none flex items-center gap-2"
             >
-              {loading ? "Processando IA..." : "Gerar Diagnóstico ✨"}
+              {loading ? "Processando IA..." : (
+                <>
+                  Gerar diagnóstico
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
             </button>
           )}
         </div>
