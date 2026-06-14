@@ -1,0 +1,547 @@
+# Respostas do Chat
+
+## 1. Primeira resposta
+Analisando rapidamente a configuração e os principais arquivos para identificar pontos de dívida técnica.
+
+## 2. Segunda resposta
+Continuando a análise, verificando páginas principais, layout e testes existentes para detectar padrões de dívida.
+
+## 3. Terceira resposta
+Encontrando mais evidências de arquitetura e duplicação em componentes comuns.
+
+## 4. Quarta resposta
+Agora verificando quais páginas e arquivos extras ainda não foram revisados para completar a análise.
+
+## 5. Quinta resposta
+Agora verificando se há testes unitários existentes e se há arquivos de colaboração com dependências antigas.
+
+## 6. Sexta resposta
+Buscando arquivos de configuração de testes e possíveis dependências não utilizadas.
+
+## 7. Análise completa de Dívida Técnica
+# Dívida Técnica #1
+
+## Item da dívida
+Navegação inconsistentes e código duplicado no menu
+
+## Categoria
+Arquitetura
+
+## Onde foi encontrada
+- `sonozen/src/components/Sidebar.tsx`
+- `sonozen/src/components/MobileNav.tsx`
+
+## Descrição técnica
+O menu lateral e o menu móvel estão duplicando a mesma lista de rotas e ícones, mas usam caminhos inconsistentes. Exemplo: em `Sidebar.tsx`, o link aponta para `/rotine` enquanto `getLinkClass` compara com `/rotina`. O mesmo ocorre em `reminders` vs `/lembretes` e `tips` vs `/dicas`.
+
+Isso gera dívida técnica porque:
+- dificulta manutenção do menu em um único lugar;
+- torna provável a existência de bugs de navegação e estados ativos incorretos;
+- aumenta a complexidade sempre que uma rota for alterada.
+
+## Origem / causa da dívida
+- crescimento incremental
+- falta de refatoração
+- implementação rápida de UI com rotas ainda em evolução
+
+## Impacto atual no sistema
+- comportamento de navegação errático
+- manutenção mais difícil do menu
+- maior chance de regressões ao alterar rotas
+- pior experiência do desenvolvedor ao entender caminhos reais
+
+## Custo futuro estimado (juros da dívida)
+- 1–2 dias extras por sprint em manutenções de rota/ui
+- possibilidade de retrabalho em 2 ou mais tickets se outros componentes consumirem essas rotas incorretas
+
+## Custo estimado para corrigir agora
+- 4 horas
+- refatorar nav items para um único array compartilhado e unificar caminhos
+
+## Prioridade
+Alta
+
+## Sugestão de pagamento da dívida
+- extrair lista de rotas e ícones para configuração central
+- corrigir caminhos para que `href` e `getLinkClass` sejam equivalentes
+- remover duplicação entre `Sidebar` e `MobileNav`
+
+## Plano de execução sugerido
+Próxima sprint
+
+---
+
+# Dívida Técnica #2
+
+## Item da dívida
+Componente `DiagnosticForm` monolítico e com estado disperso
+
+## Categoria
+Código
+
+## Onde foi encontrada
+- `sonozen/src/components/DiagnosticForm.tsx`
+
+## Descrição técnica
+O formulário de diagnóstico concentra 12 passos, dezenas de `useState`, lógica de avanço/manual, funções internas como `OptionButton` e `LiteraturaCard`, e várias validações de passos em um único arquivo.
+
+Isso é dívida técnica porque:
+- reduz coesão do componente;
+- aumenta risco de bugs ao alterar uma etapa;
+- dificulta teste e ajuste de validação;
+- torna difícil extrair lógica de negócio de UI.
+
+## Origem / causa da dívida
+- entrega rápida
+- falta de modularização
+- crescimento incremental de um único componente
+
+## Impacto atual no sistema
+- manutenção complicada
+- refatorações arriscadas
+- baixa legibilidade
+- difícil adicionar novos campos ou etapas
+
+## Custo futuro estimado (juros da dívida)
+- 1–2 dias adicionais por feature de diagnóstico
+- custo de retrabalho crescente se o fluxo mudar
+
+## Custo estimado para corrigir agora
+- 8 horas
+- dividir o formulário em subcomponentes e usar `useReducer` ou form library
+
+## Prioridade
+Alta
+
+## Sugestão de pagamento da dívida
+- separar passos em componentes menores
+- usar estado estruturado (objeto único) em vez de muitos `useState`
+- extrair `OptionButton` e cards reutilizáveis para arquivos próprios
+- isolar validação de etapas do JSX
+
+## Plano de execução sugerido
+Próxima sprint
+
+---
+
+# Dívida Técnica #3
+
+## Item da dívida
+Falha de arquitetura de dados: lógica de acesso ao Supabase espalhada em componentes
+
+## Categoria
+Arquitetura
+
+## Onde foi encontrada
+- `sonozen/src/app/home/page.tsx`
+- `sonozen/src/app/diagnostic/page.tsx`
+- `sonozen/src/app/rotine/page.tsx`
+- `sonozen/src/app/login/page.tsx`
+- `sonozen/src/components/DiagnosticForm.tsx`
+- `sonozen/src/components/Header.tsx`
+- `sonozen/src/lib/supabase.ts`
+
+## Descrição técnica
+As consultas Supabase e a verificação de usuário são feitas diretamente em vários componentes clientes, sem camada de serviço ou hook reutilizável. Isso acopla UI à infraestrutura de dados.
+
+Isso é dívida técnica porque:
+- aumenta duplicação;
+- reduz consistência de tratamento de usuário e erros;
+- torna mais difícil migrar para outra solução de backend ou padronizar auth;
+- dificulta testes isolados.
+
+## Origem / causa da dívida
+- desenvolvimento rápido
+- falta de arquitetura de serviço compartilhada
+- priorização da entrega de features
+
+## Impacto atual no sistema
+- validade de autenticação implementada em muitos lugares
+- maior probabilidade de divergências de comportamento
+- dificuldade para atualizar lógica de login/auth
+- esforço extra para implementação de global state / provider
+
+## Custo futuro estimado (juros da dívida)
+- 1 dia extra por tarefa de autenticação ou feature de navegação
+- 2–3 dias em mudanças de backend/auth
+
+## Custo estimado para corrigir agora
+- 1–2 dias
+- criar hook/service compartilhado `useAuth` ou `withAuth` e mover chamadas Supabase para camada de serviço
+
+## Prioridade
+Alta
+
+## Sugestão de pagamento da dívida
+- criar camada de dados/serviço para Supabase
+- consolidar `supabase.auth.getUser()` em um hook comum
+- isolar chamadas de consulta em funções reutilizáveis
+- separar UI de responsabilidade de dados
+
+## Plano de execução sugerido
+Próxima sprint
+
+---
+
+# Dívida Técnica #4
+
+## Item da dívida
+API de diagnóstico com lógica insegura e sem transação
+
+## Categoria
+Segurança
+
+## Onde foi encontrada
+- `sonozen/src/app/api/diagnostico/route.ts`
+
+## Descrição técnica
+A rota de API:
+- depende de `NEXT_PUBLIC_SUPABASE_URL` em vez de variável server-only consistente;
+- instancia `supabaseAdmin` com `SUPABASE_SERVICE_ROLE_KEY`;
+- faz `delete()` em 3 tabelas em paralelo sem transação;
+- assume que a IA retorna JSON válido e faz `JSON.parse` diretamente.
+
+Isso gera dívida técnica porque falhas parciais podem deixar o banco em estado inconsistente e a API expõe mensagens de erro sem controle.
+
+## Origem / causa da dívida
+- entrega rápida
+- preferência por protótipo
+- falta de tratamento robusto de erros
+- falta de transação de banco
+
+## Impacto atual no sistema
+- risco de dados incompletos / perda parcial
+- possível retorno de JSON inválido quebrando o fluxo
+- risco de vazamento de informações de erro
+- mais difícil garantir confiabilidade da geração IA
+
+## Custo futuro estimado (juros da dívida)
+- 2–3 dias para corrigir bugs decorrentes de inconsistência de dados
+- maior esforço ao depurar erros de IA e DB
+
+## Custo estimado para corrigir agora
+- 8 horas
+- aplicar validação de payload IA, usar transação/rollback e sanitizar erros
+
+## Prioridade
+Alta
+
+## Sugestão de pagamento da dívida
+- validar schema do JSON retornado da IA antes de usar
+- usar transações Supabase ou sequências controladas para cleanup/insert
+- evitar expor `error.message` diretamente em resposta ao cliente
+- padronizar variáveis de ambiente server-only
+
+## Plano de execução sugerido
+Sprint de refatoração
+
+---
+
+# Dívida Técnica #5
+
+## Item da dívida
+Ausência de testes unitários e cobertura de componentes/API
+
+## Categoria
+Testes
+
+## Onde foi encontrada
+- `sonozen/package.json`
+- estrutura do projeto
+
+## Descrição técnica
+O projeto não tem arquivos `.test.tsx`, `.spec.ts`, nem scripts de teste unitário. Apenas existe `cucumber-js` para testes e2e, sem integração clara de cobertura.
+
+Isso é dívida técnica porque:
+- não há proteção para regressões de lógica de componente e API;
+- mudanças em `DiagnosticForm`, navegação e API não têm validação automatizada;
+- bugs de UI e auth podem chegar em produção.
+
+## Origem / causa da dívida
+- foco em entrega de MVP / protótipo
+- falta de estratégia de testes
+
+## Impacto atual no sistema
+- maior risco na adição de features
+- menor confiança para refatorações
+- custo mais alto para QA manual
+
+## Custo futuro estimado (juros da dívida)
+- 1–2 dias extras por sprint em manutenção
+- 2–4 dias em caso de regressões não detectadas
+
+## Custo estimado para corrigir agora
+- 1 semana
+- criar testes unitários para componentes críticos e mocks para API
+
+## Prioridade
+Média
+
+## Sugestão de pagamento da dívida
+- adicionar Jest/Vitest ou usar `@playwright/test` com testes unitários
+- criar cobertura mínima para `DiagnosticForm`, `Sidebar`, `route.ts`
+- incluir cobertura de roteamento e auth
+
+## Plano de execução sugerido
+Backlog técnico
+
+---
+
+# Dívida Técnica #6
+
+## Item da dívida
+Dependências instaladas sem uso aparente
+
+## Categoria
+Dependência
+
+## Onde foi encontrada
+- `sonozen/package.json`
+
+## Descrição técnica
+O `package.json` declara `@playwright/test` e `playwright`, mas não há nenhum arquivo de configuração `playwright.config.*` no projeto.
+
+Isso é dívida técnica porque:
+- mantém dependências desnecessárias;
+- aumenta tempo de instalação e vulnerabilidade de atualização;
+- confunde o time sobre ferramentas reais em uso.
+
+## Origem / causa da dívida
+- bootstrap inicial de dependências
+- falta de limpeza de pacotes após mudança de direção
+
+## Impacto atual no sistema
+- maior footprint do projeto
+- possível drift de dependências obsoletas
+- menor clareza no pipeline de testes
+
+## Custo futuro estimado (juros da dívida)
+- 2–3 horas extras por atualização de dependências
+- 1 dia se precisar auditar dependências não usadas
+
+## Custo estimado para corrigir agora
+- 2 horas
+- remover dependências não usadas ou adicionar configuração se quiser realmente usar Playwright
+
+## Prioridade
+Média
+
+## Sugestão de pagamento da dívida
+- revisar uso de `@playwright/test` e `playwright`
+- se não for utilizado, remover do `package.json`
+- se for usado, adicionar `playwright.config.js` e documentar
+
+## Plano de execução sugerido
+Backlog técnico
+
+---
+
+# Dívida Técnica #7
+
+## Item da dívida
+Páginas de template e código de protótipo residual
+
+## Categoria
+Documentação
+
+## Onde foi encontrada
+- `sonozen/src/app/config/page.tsx`
+- `sonozen/src/app/page2.tsx`
+- `sonozen/README.md`
+
+## Descrição técnica
+Existem rotas e arquivos permanecentes de template/protótipo que não parecem fazer parte do fluxo principal (`/config`, `/page2`) e um `README.md` padrão do Next.js.
+
+Isso gera dívida técnica porque:
+- confunde desenvolvedores sobre o que é parte do produto;
+- aumenta a superfície de manutenção;
+- deixa código morto acidentalmente acessível.
+
+## Origem / causa da dívida
+- base de scaffold do create-next-app
+- falta de limpeza pós-protótipo
+
+## Impacto atual no sistema
+- risco de manutenção de código que não deve existir
+- possível uso acidental por QA ou deploy
+- desgaste de confiança na base de código
+
+## Custo futuro estimado (juros da dívida)
+- 1 dia extra para novos desenvolvedores se orientando no código
+- 2–3 horas por sprint para evitar confusões
+
+## Custo estimado para corrigir agora
+- 2 horas
+- remover rotas não usadas ou documentar claramente o propósito
+
+## Prioridade
+Baixa
+
+## Sugestão de pagamento da dívida
+- remover `page2.tsx` se for experimental
+- atualizar ou substituir `README.md` com documentação do projeto
+- excluir ou implementar `/config/page.tsx` de forma clara
+
+## Plano de execução sugerido
+Longo prazo
+
+---
+
+# Dívida Técnica #8
+
+## Item da dívida
+Roteamento e nomenclatura de componentes misturam idiomas
+
+## Categoria
+Processo
+
+## Onde foi encontrada
+- `sonozen/src/components/Sidebar.tsx`
+- `sonozen/src/components/MobileNav.tsx`
+- estrutura de rotas do `app`
+
+## Descrição técnica
+O projeto mistura português e inglês em nomes de rotas e variáveis (`rotine`/`rotina`, `diagnostic`/`diagnostico`, `tips`/`dicas`, `reminders`/`lembretes`). Isso gera inconsistência sem motivo técnico.
+
+## Origem / causa da dívida
+- falta de padronização de nomenclatura
+- ajustes rápidos de última hora
+
+## Impacto atual no sistema
+- maior curva de aprendizado
+- erros sutis de rota e CSS
+- dificuldade na documentação e manutenção
+
+## Custo futuro estimado (juros da dívida)
+- 1 dia extra por novo desenvolvedor para entender rota/nomeação
+- 1–2 dias em mudanças de rota ou tradução
+
+## Custo estimado para corrigir agora
+- 4 horas
+- aplicar convenção única no projeto e renomear rotas/links correspondentes
+
+## Prioridade
+Média
+
+## Sugestão de pagamento da dívida
+- definir padrão de nomenclatura (por ex. tudo em português ou tudo em inglês)
+- renomear rotas e ajustar links em massa
+- adicionar documentação de convenção de nomeação
+
+## Plano de execução sugerido
+Próxima sprint
+
+---
+
+# Dívida Técnica #9
+
+## Item da dívida
+Uso de `alert()` para tratamento de erro em auth
+
+## Categoria
+Código
+
+## Onde foi encontrada
+- `sonozen/src/app/login/page.tsx`
+
+## Descrição técnica
+O login/cadastro usa `alert()` para exibir erros de autenticação e feedback do usuário, em vez de UI controlada.
+
+Isso é dívida técnica porque:
+- torna UX inconsistente;
+- dificulta testes de UI;
+- não permite internationalização ou layout acessível;
+- reforça lógica de UI e mensagens diretamente no componente.
+
+## Origem / causa da dívida
+- entrega rápida
+- implementação de protótipo
+- falta de padronização de tratamento de erros
+
+## Impacto atual no sistema
+- experiência pobre para o usuário
+- risco de quebra em navegadores com bloqueio de alertas
+- menor capacidade de fornecer mensagens contextualizadas
+
+## Custo futuro estimado (juros da dívida)
+- 4–8 horas por melhoria de UI/UX no fluxo de auth
+- pode aumentar a complexidade de suporte se mensagens forem traduzidas
+
+## Custo estimado para corrigir agora
+- 2 horas
+- substituir `alert()` por renderização de mensagem de erro no JSX
+
+## Prioridade
+Baixa
+
+## Sugestão de pagamento da dívida
+- usar estado `errorMessage` visível na UI
+- aplicar padrão de notificação consistente
+- mover strings de erro para constantes ou i18n
+
+## Plano de execução sugerido
+Backlog técnico
+
+---
+
+## Resumo Final
+
+### Total de dívidas encontradas
+9
+
+### Quantidade por categoria
+- Arquitetura: 3
+- Código: 3
+- Testes: 1
+- Segurança: 1
+- Dependência: 1
+- Documentação: 1
+- Processo: 1
+
+### Top 5 dívidas mais críticas
+1. Navegação inconsistentes e menu duplicado (`Sidebar` / `MobileNav`)
+2. `DiagnosticForm` monolítico e difícil de manter
+3. Arquitetura de dados Supabase espalhada em componentes
+4. API de diagnóstico sem transação e validação robusta
+5. Ausência de testes unitários/cobertura de componentes
+
+### Dívida com maior impacto futuro
+API de diagnóstico com lógica insegura e sem transação (`sonozen/src/app/api/diagnostico/route.ts`)
+
+### Dívida mais barata de corrigir
+`alert()` no fluxo de login (`sonozen/src/app/login/page.tsx`)
+
+### Recomendação geral para o projeto
+O nível geral de dívida técnica está entre médio e alto, principalmente por:
+- arquitetura de dados e auth espalhada;
+- componentes grandes e duplicados;
+- falta de testes automatizados;
+- rotas inconsistentes e código residual de protótipo.
+
+Recomendo priorizar:
+1. corrigir navegação/rotas e extrair menu compartilhado;
+2. modularizar `DiagnosticForm`;
+3. criar camada de serviço/hook para Supabase e auth;
+4. adicionar testes unitários básicos;
+5. limpar código residual (`config/page.tsx`, `page2.tsx`, README padrão).
+
+> Observação positiva: o projeto já usa Next.js 16, React 19, TypeScript 6 e Tailwind 4, o que é uma base moderna. A dívida está mais no arranjo arquitetural e manutenção do que na stack tecnológica.
+
+## Resumo de Riscos
+
+### Crítico
+- `Navegação inconsistentes e código duplicado no menu` — Arquitetura
+- `Componente DiagnosticForm monolítico e com estado disperso` — Código
+- `API de diagnóstico com lógica insegura e sem transação` — Segurança
+
+### Alto
+- `Falha de arquitetura de dados: lógica de acesso ao Supabase espalhada em componentes` — Arquitetura
+- `Ausência de testes unitários e cobertura de componentes/API` — Testes
+
+### Médio
+- `Dependências instaladas sem uso aparente` — Dependência
+- `Roteamento e nomenclatura de componentes misturam idiomas` — Processo
+- `Uso de alert() para tratamento de erro em auth` — Código
+
+### Baixo
+- `Páginas de template e código de protótipo residual` — Documentação
