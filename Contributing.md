@@ -1,4 +1,4 @@
-# Como contribuir para o Sonozen
+# Como contribuir para o Sonozen!?
 
 Em primeiro lugar, muito obrigado por dedicar seu tempo para contribuir com o **Sonozen**! 🎉👍
 
