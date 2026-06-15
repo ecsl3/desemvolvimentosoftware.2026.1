@@ -154,11 +154,11 @@ export default function LembretesPage() {
       <Sidebar />
 
       <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-        <div className="container py-8 md:py-12 max-w-4xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
+        <div className="container py-6 md:py-10 max-w-4xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
           
           <div className="flex flex-col md:flex-row md:justify-between md:items-end border-b border-gray-800 pb-6 gap-4">
             <div>
-              <h1 className="text-3xl font-display font-bold text-white flex items-center gap-3">
+              <h1 className="text-3xl font-display font-semibold text-white flex items-center gap-3">
                 <Bell className="w-8 h-8 text-blue-500" />
                 Seus Lembretes
               </h1>

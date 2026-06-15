@@ -111,11 +111,11 @@ export default function ProfilePage() {
       <Sidebar />
 
       <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-        <div className="container py-8 md:py-12 max-w-3xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
+        <div className="container py-6 md:py-10 max-w-3xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
           
           <div className="flex justify-between items-center border-b border-gray-800 pb-6">
             <div>
-              <h1 className="text-3xl font-display font-bold text-white">Meu Perfil</h1>
+              <h1 className="text-3xl font-display font-semibold text-white">Meu Perfil</h1>
               <p className="text-gray-400 mt-1">Gerencie suas informações e metas.</p>
             </div>
             <button 
