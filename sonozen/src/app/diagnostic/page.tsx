@@ -68,7 +68,7 @@ export default function DiagnosticPage() {
       <div className="min-h-screen flex flex-col md:flex-row bg-gray-950 text-white font-sans">
         <Sidebar />
         <main className="flex-1 md:ml-64 flex items-center justify-center">
-          <p className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">Carregando SonoZen AI...</p>
+          <p className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">Carregando Diagnóstico...</p>
         </main>
         <MobileNav />
       </div>
