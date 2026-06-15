@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 // Importando os componentes modulares
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
-import Logo from "../../components/Logo";
+import { Brain } from "lucide-react";
 
 // 1. Tipagem ajustada para aceitar IDs de texto (UUID da dica personalizada) ou número (Genérica)
 interface Dica {
@@ -128,7 +128,7 @@ export default function DicasPage() {
         <Sidebar />
         <main className="flex-1 md:ml-64 pb-20 md:pb-0 flex items-center justify-center">
           <div className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">
-            Carregando SonoZen AI...
+            Carregando Dicas...
           </div>
         </main>
         <MobileNav />
@@ -144,7 +144,7 @@ export default function DicasPage() {
         <div className="container py-6 md:py-10 max-w-3xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
           
           <div className="border-b border-gray-800 pb-6">
-            <h2 className="font-display text-3xl font-semibold mb-2 text-white">Central de Dicas</h2>
+            <h1 className="font-display text-3xl font-semibold mb-2 text-white">Central de Dicas</h1>
             <p className="text-gray-400 text-sm">
               {temDiagnostico 
                 ? "Dicas personalizadas pela IA com base na sua rotina." 
@@ -154,7 +154,7 @@ export default function DicasPage() {
 
           {!temDiagnostico && (
             <div className="bg-blue-900/20 border border-blue-900/50 p-4 rounded-xl flex items-center gap-4">
-              <Logo className="w-7 h-7 text-blue-500 shrink-0" />
+              <Brain className="w-7 h-7 text-blue-500 shrink-0 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]" />
               <p className="text-sm text-blue-200">
                 Você está vendo as dicas padrão. Faça o diagnóstico para desbloquear dicas personalizadas pela IA.
               </p>

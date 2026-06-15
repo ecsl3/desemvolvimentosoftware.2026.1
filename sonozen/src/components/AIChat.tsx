@@ -1,6 +1,6 @@
 // src/components/AIChat.tsx
 import ReactMarkdown from "react-markdown";
-import Logo from "./Logo";
+import { Brain } from "lucide-react";
 
 interface AIChatProps {
   input: string;
@@ -24,7 +24,7 @@ export default function AIChat({
       {respostaAtual && (
         <div className="mb-6 p-5 bg-gray-950/50 border border-gray-800 rounded-xl animate-in fade-in duration-500">
           <div className="flex items-center gap-2 mb-3">
-            <Logo className="w-5 h-5 text-blue-500 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]" />
+            <Brain className="w-5 h-5 text-blue-500 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]" />
             <h3 className="font-semibold text-blue-400">Resposta do SonoZen AI:</h3>
           </div>
           

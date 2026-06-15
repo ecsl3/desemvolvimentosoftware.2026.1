@@ -66,7 +66,7 @@ export default function RoutinePage() {
       <div className="min-h-screen flex flex-col md:flex-row bg-gray-950 text-white font-sans">
         <Sidebar />
         <main className="flex-1 md:ml-64 flex items-center justify-center">
-          <p className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">Carregando SonoZen AI...</p>
+          <p className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">Carregando Rotina...</p>
         </main>
         <MobileNav />
       </div>
@@ -84,9 +84,9 @@ export default function RoutinePage() {
             // ESTADO COM DADOS: Renderiza a Linha do Tempo (Timeline)
             <div className="space-y-8 animate-in fade-in duration-500">
               
-              <div className="flex items-start justify-between border-b border-gray-800 pb-4">
+              <div className="flex items-start justify-between border-b border-gray-800 pb-6">
                 <div>
-                  <h2 className="font-display text-3xl font-semibold mb-1">Sua Rotina Pré-Sono</h2>
+                  <h1 className="font-display text-3xl font-semibold mb-1">Sua Rotina Pré-Sono</h1>
                   <p className="text-gray-400 text-sm">Seu plano guiado para desacelerar antes de dormir.</p>
                 </div>
                 <button 
@@ -156,7 +156,7 @@ export default function RoutinePage() {
             // ESTADO VAZIO (Nenhuma rotina encontrada)
             <div className="flex flex-col items-center justify-center text-center py-20 px-4 animate-in zoom-in-95 duration-500">
               <Logo className="w-24 h-24 text-blue-500 mb-6 drop-shadow-[0_0_16px_rgba(96,165,250,0.5)]" />
-              <h2 className="font-display text-3xl font-semibold mb-3 text-white">Comece sua rotina pré-sono</h2>
+              <h1 className="font-display text-3xl font-semibold mb-3 text-white">Comece sua rotina pré-sono</h1>
               <p className="text-gray-400 max-w-md mb-8">
                 Sua rotina ainda não foi criada. Faça o diagnóstico e receba um plano pré-sono sob medida da nossa IA.
               </p>

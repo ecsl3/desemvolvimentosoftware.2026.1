@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
-import { Save, User, Moon, LogOut } from "lucide-react";
+import { Save, User, Moon, LogOut, Mail } from "lucide-react";
 
 // Importando os componentes modulares
 import Sidebar from "../../components/Sidebar";
@@ -97,7 +97,7 @@ export default function ProfilePage() {
       <div className="min-h-screen flex flex-col md:flex-row bg-gray-950 text-white font-sans">
         <Sidebar />
         <main className="flex-1 md:ml-64 flex items-center justify-center">
-          <p className="text-blue-500 font-display font-semibold text-2xl animate-pulse">
+          <p className="text-blue-500 font-display font-semibold text-2xl md:text-3xl animate-pulse">
             Carregando Perfil...
           </p>
         </main>
@@ -111,11 +111,11 @@ export default function ProfilePage() {
       <Sidebar />
 
       <main className="flex-1 md:ml-64 pb-20 md:pb-0">
-        <div className="container py-8 md:py-12 max-w-3xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
+        <div className="container py-6 md:py-10 max-w-3xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
           
           <div className="flex justify-between items-center border-b border-gray-800 pb-6">
             <div>
-              <h1 className="text-3xl font-display font-bold text-white">Meu Perfil</h1>
+              <h1 className="text-3xl font-display font-semibold text-white">Meu Perfil</h1>
               <p className="text-gray-400 mt-1">Gerencie suas informações e metas.</p>
             </div>
             <button 
@@ -123,7 +123,7 @@ export default function ProfilePage() {
               className="flex items-center gap-2 px-4 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 rounded-xl transition"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Sair da Conta</span>
+              <span className="hidden sm:inline">Sair da conta</span>
             </button>
           </div>
 
@@ -132,7 +132,7 @@ export default function ProfilePage() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center gap-2">
-                  <User className="w-4 h-4 text-blue-500" /> E-mail
+                  <Mail className="w-4 h-4 text-blue-500" /> E-mail
                 </label>
                 <input 
                   type="email" 
@@ -145,7 +145,7 @@ export default function ProfilePage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center gap-2">
-                  <User className="w-4 h-4 text-blue-500" /> Nome Completo
+                  <User className="w-4 h-4 text-blue-500" /> Nome completo
                 </label>
                 <input 
                   type="text" 
@@ -159,7 +159,7 @@ export default function ProfilePage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center gap-2">
-                  <Moon className="w-4 h-4 text-blue-500" /> Meta Diária de Sono (horas)
+                  <Moon className="w-4 h-4 text-blue-500" /> Meta diária de sono (horas)
                 </label>
                 <div className="flex items-center gap-4">
                   <input 
@@ -171,7 +171,7 @@ export default function ProfilePage() {
                     onChange={(e) => setPerfil({ ...perfil, meta_sono: parseInt(e.target.value) })}
                     className="flex-1 accent-blue-500"
                   />
-                  <span className="text-2xl font-bold text-blue-400 w-12 text-center">
+                  <span className="text-2xl font-bold text-blue-500 w-12 text-center">
                     {perfil.meta_sono}h
                   </span>
                 </div>
@@ -188,10 +188,10 @@ export default function ProfilePage() {
               <button 
                 type="submit" 
                 disabled={salvando}
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition disabled:opacity-50"
+                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:shadow-none disabled:hover:scale-100"
               >
                 <Save className="w-5 h-5" />
-                {salvando ? "Salvando..." : "Salvar Alterações"}
+                {salvando ? "Salvando..." : "Salvar alterações"}
               </button>
             </div>
           </form>

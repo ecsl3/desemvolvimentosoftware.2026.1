@@ -5,6 +5,7 @@ import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 import Logo from "../../components/Logo";
 import CeuEstrelado from "../../components/CeuEstrelado";
+import { Mail, Lock } from "lucide-react";
 
 // Ícones SVG para o botão de mostrar/ocultar senha
 const EyeIcon = () => (
@@ -93,7 +94,7 @@ export default function AuthPage() {
         {/* Formulário */}
         <form onSubmit={handleAuth} className="space-y-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold text-gray-500 uppercase ml-1">E-mail</label>
+            <label className="text-xs font-semibold text-gray-500 uppercase ml-1 flex items-center gap-1.5"><Mail className="w-3.5 h-3.5 text-blue-500" /> E-mail</label>
             <input
               type="email"
               required
@@ -104,7 +105,7 @@ export default function AuthPage() {
           </div>
 
           <div className="space-y-1 relative">
-            <label className="text-xs font-semibold text-gray-500 uppercase ml-1">Senha</label>
+            <label className="text-xs font-semibold text-gray-500 uppercase ml-1 flex items-center gap-1.5"><Lock className="w-3.5 h-3.5 text-blue-500" /> Senha</label>
             <div className="relative">
               <input
                 // AQUI A MÁGICA: Muda o tipo do input dependendo do estado
