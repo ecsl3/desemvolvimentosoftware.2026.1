@@ -228,7 +228,7 @@ export default function LembretesPage() {
               ) : (
                 <form onSubmit={gerarComIA} className="bg-gradient-to-br from-blue-900/40 to-gray-900 border border-blue-900/50 p-6 rounded-2xl shadow-lg space-y-4">
                   <h3 className="font-semibold text-blue-400 flex items-center gap-2">
-                    <Brain className="w-5 h-5 text-blue-500" /> SonoZen IA
+                    <Brain className="w-5 h-5 text-blue-500" /> SonoZen AI
                   </h3>
                   <p className="text-xs text-gray-400">
                     Descreva o que você quer melhorar e a IA criará uma grade de lembretes para você.
@@ -252,7 +252,7 @@ export default function LembretesPage() {
                   >
                     {carregandoIA ? (
                       <><RefreshCw className="w-4 h-4 animate-spin" /> Gerando...</>
-                    ) : "Gerar Lembretes Mágicos"}
+                    ) : "Gerar lembretes"}
                   </button>
                 </form>
               )}
