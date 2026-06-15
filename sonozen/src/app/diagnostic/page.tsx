@@ -6,8 +6,7 @@ import { supabase } from "../../lib/supabase";
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
 import DiagnosticForm from "../../components/DiagnosticForm";
-import Logo from "../../components/Logo";
-import { AlertTriangle, RotateCcw } from "lucide-react";
+import { AlertTriangle, RotateCcw, Brain } from "lucide-react";
 
 export default function DiagnosticPage() {
   const [loading, setLoading] = useState(true);
@@ -123,7 +122,7 @@ export default function DiagnosticPage() {
               {/* Card Resumo */}
               <div className="bg-gradient-to-br from-blue-900/40 to-gray-900 border border-blue-900/50 p-6 rounded-2xl shadow-lg">
                 <p className="text-blue-400 font-semibold mb-3 flex items-center gap-2">
-                  <Logo className="w-5 h-5 text-blue-500 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]" /> Análise do SonoZen AI
+                  <Brain className="w-5 h-5 text-blue-500 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]" /> Análise do SonoZen AI
                 </p>
                 <p className="text-gray-300 leading-relaxed">
                   {diagnosticoAtual.resumo_ia}

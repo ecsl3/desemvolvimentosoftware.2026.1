@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 // Importando os componentes modulares
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
-import Logo from "../../components/Logo";
+import { Brain } from "lucide-react";
 
 // 1. Tipagem ajustada para aceitar IDs de texto (UUID da dica personalizada) ou número (Genérica)
 interface Dica {
@@ -154,7 +154,7 @@ export default function DicasPage() {
 
           {!temDiagnostico && (
             <div className="bg-blue-900/20 border border-blue-900/50 p-4 rounded-xl flex items-center gap-4">
-              <Logo className="w-7 h-7 text-blue-500 shrink-0" />
+              <Brain className="w-7 h-7 text-blue-500 shrink-0 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]" />
               <p className="text-sm text-blue-200">
                 Você está vendo as dicas padrão. Faça o diagnóstico para desbloquear dicas personalizadas pela IA.
               </p>
