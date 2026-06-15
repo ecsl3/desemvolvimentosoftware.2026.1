@@ -85,7 +85,7 @@ export default function DiagnosticPage() {
             <div className="max-w-2xl mx-auto w-full animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
               
               {/* Cabeçalho */}
-              <div className="flex justify-between items-end border-b border-gray-800 pb-4">
+              <div className="flex justify-between items-end border-b border-gray-800 pb-6">
                 <div>
                   <h1 className="font-display text-3xl font-semibold mb-1">Seu Diagnóstico</h1>
                   <p className="text-gray-400 text-sm">

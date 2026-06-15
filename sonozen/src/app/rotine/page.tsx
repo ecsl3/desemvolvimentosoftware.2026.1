@@ -84,7 +84,7 @@ export default function RoutinePage() {
             // ESTADO COM DADOS: Renderiza a Linha do Tempo (Timeline)
             <div className="space-y-8 animate-in fade-in duration-500">
               
-              <div className="flex items-start justify-between border-b border-gray-800 pb-4">
+              <div className="flex items-start justify-between border-b border-gray-800 pb-6">
                 <div>
                   <h1 className="font-display text-3xl font-semibold mb-1">Sua Rotina Pré-Sono</h1>
                   <p className="text-gray-400 text-sm">Seu plano guiado para desacelerar antes de dormir.</p>
