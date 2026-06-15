@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
-import { Trash2, Plus, Brain, Calendar, Clock, Bell, RefreshCw } from "lucide-react";
+import { Trash2, Plus, Brain, Calendar, Clock, RefreshCw } from "lucide-react";
 
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
@@ -158,10 +158,7 @@ export default function LembretesPage() {
           
           <div className="flex flex-col md:flex-row md:justify-between md:items-end border-b border-gray-800 pb-6 gap-4">
             <div>
-              <h1 className="text-3xl font-display font-semibold text-white flex items-center gap-3">
-                <Bell className="w-8 h-8 text-blue-500" />
-                Seus Lembretes
-              </h1>
+              <h1 className="text-3xl font-display font-semibold text-white">Seus Lembretes</h1>
               <p className="text-gray-400 mt-1">Gerencie alertas para manter sua rotina de sono.</p>
             </div>
             
@@ -190,9 +187,7 @@ export default function LembretesPage() {
             <div className="lg:col-span-1 space-y-6">
               {activeTab === "manual" ? (
                 <form onSubmit={adicionarLembreteManual} className="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-lg space-y-4">
-                  <h3 className="font-semibold text-white flex items-center gap-2">
-                    <Plus className="w-4 h-4 text-blue-500" /> Novo Lembrete
-                  </h3>
+                  <h3 className="font-semibold text-white">Novo Lembrete</h3>
                   
                   <div>
                     <label className="block text-xs font-medium text-gray-400 mb-1">Título</label>
@@ -220,15 +215,15 @@ export default function LembretesPage() {
                   <button 
                     type="submit" 
                     disabled={salvandoManual}
-                    className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition disabled:opacity-50"
+                    className="w-full flex items-center justify-center gap-2 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition disabled:opacity-50"
                   >
-                    {salvandoManual ? "Adicionando..." : "Adicionar"}
+                    {salvandoManual ? "Adicionando..." : <><Plus className="w-4 h-4" />Adicionar</>}
                   </button>
                 </form>
               ) : (
                 <form onSubmit={gerarComIA} className="bg-gradient-to-br from-blue-900/40 to-gray-900 border border-blue-900/50 p-6 rounded-2xl shadow-lg space-y-4">
                   <h3 className="font-semibold text-blue-400 flex items-center gap-2">
-                    <Brain className="w-5 h-5 text-blue-500" /> SonoZen AI
+                    <Brain className="w-5 h-5 text-blue-500 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]" /> SonoZen AI
                   </h3>
                   <p className="text-xs text-gray-400">
                     Descreva o que você quer melhorar e a IA criará uma grade de lembretes para você.
