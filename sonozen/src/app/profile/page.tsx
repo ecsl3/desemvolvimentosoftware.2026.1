@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
-import { Save, User, Moon, LogOut } from "lucide-react";
+import { Save, User, Moon, LogOut, Mail } from "lucide-react";
 
 // Importando os componentes modulares
 import Sidebar from "../../components/Sidebar";
@@ -123,7 +123,7 @@ export default function ProfilePage() {
               className="flex items-center gap-2 px-4 py-2 bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 rounded-xl transition"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Sair da Conta</span>
+              <span className="hidden sm:inline">Sair da conta</span>
             </button>
           </div>
 
@@ -132,7 +132,7 @@ export default function ProfilePage() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center gap-2">
-                  <User className="w-4 h-4 text-blue-500" /> E-mail
+                  <Mail className="w-4 h-4 text-blue-500" /> E-mail
                 </label>
                 <input 
                   type="email" 
@@ -145,7 +145,7 @@ export default function ProfilePage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center gap-2">
-                  <User className="w-4 h-4 text-blue-500" /> Nome Completo
+                  <User className="w-4 h-4 text-blue-500" /> Nome completo
                 </label>
                 <input 
                   type="text" 
@@ -159,7 +159,7 @@ export default function ProfilePage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-400 mb-2 flex items-center gap-2">
-                  <Moon className="w-4 h-4 text-blue-500" /> Meta Diária de Sono (horas)
+                  <Moon className="w-4 h-4 text-blue-500" /> Meta diária de sono (horas)
                 </label>
                 <div className="flex items-center gap-4">
                   <input 
@@ -171,7 +171,7 @@ export default function ProfilePage() {
                     onChange={(e) => setPerfil({ ...perfil, meta_sono: parseInt(e.target.value) })}
                     className="flex-1 accent-blue-500"
                   />
-                  <span className="text-2xl font-bold text-blue-400 w-12 text-center">
+                  <span className="text-2xl font-bold text-blue-500 w-12 text-center">
                     {perfil.meta_sono}h
                   </span>
                 </div>
@@ -188,10 +188,10 @@ export default function ProfilePage() {
               <button 
                 type="submit" 
                 disabled={salvando}
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition disabled:opacity-50"
+                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:shadow-none disabled:hover:scale-100"
               >
                 <Save className="w-5 h-5" />
-                {salvando ? "Salvando..." : "Salvar Alterações"}
+                {salvando ? "Salvando..." : "Salvar alterações"}
               </button>
             </div>
           </form>
