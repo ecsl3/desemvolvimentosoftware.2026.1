@@ -87,7 +87,7 @@ export default function DiagnosticPage() {
               {/* Cabeçalho */}
               <div className="flex justify-between items-end border-b border-gray-800 pb-4">
                 <div>
-                  <h2 className="font-display text-3xl font-semibold mb-1">Seu Diagnóstico</h2>
+                  <h1 className="font-display text-3xl font-semibold mb-1">Seu Diagnóstico</h1>
                   <p className="text-gray-400 text-sm">
                     Última atualização: {diagnosticoAtual.atualizado_em ? formatDate(diagnosticoAtual.atualizado_em) : "Recente"}
                   </p>

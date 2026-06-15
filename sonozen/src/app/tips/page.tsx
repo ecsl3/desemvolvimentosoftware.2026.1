@@ -144,7 +144,7 @@ export default function DicasPage() {
         <div className="container py-6 md:py-10 max-w-3xl mx-auto px-6 space-y-8 animate-in fade-in duration-500">
           
           <div className="border-b border-gray-800 pb-6">
-            <h2 className="font-display text-3xl font-semibold mb-2 text-white">Central de Dicas</h2>
+            <h1 className="font-display text-3xl font-semibold mb-2 text-white">Central de Dicas</h1>
             <p className="text-gray-400 text-sm">
               {temDiagnostico 
                 ? "Dicas personalizadas pela IA com base na sua rotina." 
