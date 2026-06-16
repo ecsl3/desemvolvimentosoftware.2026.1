@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../../lib/supabase";
+import { AuthService } from "../../services/AuthService";
 import { useRouter } from "next/navigation";
 import Logo from "../../components/Logo";
 import CeuEstrelado from "../../components/CeuEstrelado";
@@ -39,17 +39,11 @@ export default function AuthPage() {
     const emailLimpo = email.trim();
 
     if (isLogin) {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: emailLimpo,
-        password,
-      });
+      const { error } = await AuthService.signInWithPassword(emailLimpo, password);
       if (error) alert("Erro ao entrar: " + error.message);
       else router.push("/home");
     } else {
-      const { error } = await supabase.auth.signUp({
-        email: emailLimpo,
-        password,
-      });
+      const { error } = await AuthService.signUp(emailLimpo, password);
       // Supabase retorna erro genérico quando o email já existe por questões de segurança (se a confirmação de email estiver ligada).
       // Mas o "error.message" geralmente contém a informação de "User already registered"
       if (error) alert("Erro ao cadastrar: " + error.message);

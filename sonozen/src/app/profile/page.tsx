@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { AuthService } from "../../services/AuthService";
+import { ProfileService } from "../../services/ProfileService";
 import { useRouter } from "next/navigation";
 import { Save, User, Moon, LogOut, Mail } from "lucide-react";
 
@@ -25,7 +26,7 @@ export default function ProfilePage() {
   useEffect(() => {
     async function inicializar() {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { user } = await AuthService.getUser();
 
         if (!user) {
           router.push("/login");
@@ -35,11 +36,7 @@ export default function ProfilePage() {
         setUsuario(user);
 
         // Busca os dados do perfil
-        const { data, error } = await supabase
-          .from("perfis")
-          .select("nome, meta_sono")
-          .eq("id", user.id)
-          .single();
+        const { data, error } = await ProfileService.getProfile(user.id);
 
         if (data) {
           setPerfil({
@@ -65,9 +62,7 @@ export default function ProfilePage() {
     setMensagem({ texto: "", erro: false });
 
     try {
-      const { error } = await supabase
-        .from("perfis")
-        .upsert({ 
+      const { error } = await ProfileService.upsertProfile({ 
           id: usuario.id, 
           nome: perfil.nome, 
           meta_sono: perfil.meta_sono 
@@ -84,7 +79,7 @@ export default function ProfilePage() {
   }
 
   async function deslogar() {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await AuthService.signOut();
     if (error) {
       alert("Erro ao sair: " + error.message);
     } else {

@@ -2,7 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { AuthService } from "../../services/AuthService";
+import { TipsService } from "../../services/TipsService";
 import { useRouter } from "next/navigation";
 
 // Importando os componentes modulares
@@ -55,20 +56,14 @@ export default function DicasPage() {
   useEffect(() => {
     async function buscarDicas() {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { user } = await AuthService.getUser();
         if (!user) return;
 
         // 1. Busca Dicas Genéricas selecionadas para o usuário
-        const { data: genericasUser } = await supabase
-          .from("usuario_dicas")
-          .select(`dicas (id, categoria, titulo, descricao, icone_nome)`)
-          .eq("usuario_id", user.id);
+        const { data: genericasUser } = await TipsService.getUserGenericTips(user.id);
 
         // 2. Busca Dicas Personalizadas criadas pela IA para o usuário
-        const { data: personalizadasUser } = await supabase
-          .from("dicas_personalizadas")
-          .select(`id, titulo, descricao, icone_nome`)
-          .eq("usuario_id", user.id);
+        const { data: personalizadasUser } = await TipsService.getUserPersonalizedTips(user.id);
 
         let listaFinal: Dica[] = [];
 
@@ -98,11 +93,7 @@ export default function DicasPage() {
         } else {
           // 3. Fallback: Usuário não tem diagnóstico. Busca as dicas de ID 1 a 6 (Catálogo Padrão)
           setTemDiagnostico(false);
-          const { data: dicasPadrao } = await supabase
-            .from("dicas")
-            .select("*")
-            .in("id", [1, 2, 3, 4, 5, 6])
-            .order("id", { ascending: true });
+          const { data: dicasPadrao } = await TipsService.getDefaultTips();
 
           if (dicasPadrao) {
             setDicas(dicasPadrao.map(d => ({ ...d, isPersonalizada: false })));

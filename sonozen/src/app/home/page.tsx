@@ -2,7 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { AuthService } from "../../services/AuthService";
+import { DiagnosticService } from "../../services/DiagnosticService";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -24,7 +25,7 @@ export default function PaginaPrincipal() {
   useEffect(() => {
     async function inicializar() {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { user } = await AuthService.getUser();
 
         if (!user) {
           router.push("/login");
@@ -42,13 +43,7 @@ export default function PaginaPrincipal() {
 
   async function carregarDados(userId: string) {
     // 1. Verifica se o usuário tem um diagnóstico processado
-    const { data: diagData } = await supabase
-      .from("diagnosticos_sono")
-      .select("id, processado_ia")
-      .eq("usuario_id", userId)
-      .order("criado_em", { ascending: false })
-      .limit(1)
-      .single();
+    const { data: diagData } = await DiagnosticService.getLatestProcessedDiagnostic(userId);
 
     if (diagData && diagData.processado_ia) {
       setTemDiagnostico(true);

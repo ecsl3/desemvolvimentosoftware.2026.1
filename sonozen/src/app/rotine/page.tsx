@@ -2,7 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { AuthService } from "../../services/AuthService";
+import { DiagnosticService } from "../../services/DiagnosticService";
 import { useRouter } from "next/navigation";
 
 // Importando os componentes modulares
@@ -24,15 +25,11 @@ export default function RoutinePage() {
   useEffect(() => {
     async function fetchRotina() {
       setLoading(true);
-      const { data: { user } } = await supabase.auth.getUser();
+      const { user } = await AuthService.getUser();
 
       if (user) {
         // Busca a rotina ordenada cronologicamente
-        const { data, error } = await supabase
-          .from("rotinas_pre_sono")
-          .select("*")
-          .eq("usuario_id", user.id)
-          .order("ordem", { ascending: true });
+        const { data, error } = await DiagnosticService.getRoutines(user.id);
 
         if (data && data.length > 0) {
           setRotina(data);

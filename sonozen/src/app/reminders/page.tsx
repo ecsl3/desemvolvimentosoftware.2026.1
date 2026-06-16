@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { AuthService } from "../../services/AuthService";
+import { RemindersService } from "../../services/RemindersService";
 import { useRouter } from "next/navigation";
 import { Trash2, Plus, Brain, Calendar, Clock, RefreshCw } from "lucide-react";
 
@@ -34,7 +35,7 @@ export default function LembretesPage() {
   useEffect(() => {
     async function inicializar() {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { user } = await AuthService.getUser();
 
         if (!user) {
           router.push("/login");
@@ -52,11 +53,7 @@ export default function LembretesPage() {
 
   async function buscarLembretes(userId: string) {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("lembretes")
-      .select("*")
-      .eq("usuario_id", userId)
-      .order("horario", { ascending: true });
+    const { data, error } = await RemindersService.getReminders(userId);
 
     if (!error && data) {
       setLembretes(data);
@@ -70,14 +67,12 @@ export default function LembretesPage() {
     setSalvandoManual(true);
 
     try {
-      const { error } = await supabase
-        .from("lembretes")
-        .insert([{
+      const { error } = await RemindersService.createReminder({
           usuario_id: usuario.id,
           titulo: novoTitulo,
           horario: novoHorario,
           ativo: true
-        }]);
+        });
 
       if (!error) {
         setNovoTitulo("");
@@ -122,14 +117,14 @@ export default function LembretesPage() {
   }
 
   async function apagarLembrete(id: string) {
-    const { error } = await supabase.from("lembretes").delete().eq("id", id);
+    const { error } = await RemindersService.deleteReminder(id);
     if (!error) {
       setLembretes(lembretes.filter(l => l.id !== id));
     }
   }
 
   async function toggleLembrete(id: string, ativoAtual: boolean) {
-    const { error } = await supabase.from("lembretes").update({ ativo: !ativoAtual }).eq("id", id);
+    const { error } = await RemindersService.toggleReminderActive(id, ativoAtual);
     if (!error) {
       setLembretes(lembretes.map(l => l.id === id ? { ...l, ativo: !ativoAtual } : l));
     }

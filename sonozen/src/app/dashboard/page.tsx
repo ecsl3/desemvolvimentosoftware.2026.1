@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { AuthService } from "../../services/AuthService";
+import { ProfileService } from "../../services/ProfileService";
+import { DiagnosticService } from "../../services/DiagnosticService";
+import { RemindersService } from "../../services/RemindersService";
+import { TipsService } from "../../services/TipsService";
 import { useRouter } from "next/navigation";
 import { Bell, Activity, Lightbulb, ChevronRight, Brain } from "lucide-react";
 import Link from "next/link";
@@ -33,7 +37,7 @@ export default function DashboardPage() {
   useEffect(() => {
     async function carregarDashboard() {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { user } = await AuthService.getUser();
 
         if (!user) {
           router.push("/login");
@@ -41,32 +45,18 @@ export default function DashboardPage() {
         }
 
         // 1. Busca Perfil
-        const { data: perfil } = await supabase.from("perfis").select("nome").eq("id", user.id).single();
+        const { data: perfil } = await ProfileService.getProfileName(user.id);
 
         // 2. Busca Último Diagnóstico
-        const { data: diag } = await supabase
-          .from("diagnosticos_sono")
-          .select("score_obtido, resumo_ia")
-          .eq("usuario_id", user.id)
-          .eq("processado_ia", true)
-          .order("criado_em", { ascending: false })
-          .limit(1)
-          .single();
+        const { data: diag } = await DiagnosticService.getLatestProcessedDiagnostic(user.id);
 
         // 3. Busca Lembretes
-        const { data: lembretes } = await supabase
-          .from("lembretes")
-          .select("*")
-          .eq("usuario_id", user.id)
-          .eq("ativo", true)
-          .order("horario", { ascending: true });
+        const { data: lembretes } = await RemindersService.getActiveReminders(user.id);
 
         // 4. Busca algumas Dicas Recomendadas
-        const { data: usuarioDicas } = await supabase
-          .from("usuario_dicas")
-          .select("dicas(titulo, descricao)")
-          .eq("usuario_id", user.id)
-          .limit(2);
+        // Simulating the original limit 2 locally for the UI
+        const { data: usuarioDicasData } = await TipsService.getUserGenericTips(user.id);
+        const usuarioDicas = usuarioDicasData?.slice(0, 2) || [];
 
         // Processa o próximo lembrete (lógica simples baseada na hora atual - fallback p/ o primeiro)
         let prox = null;

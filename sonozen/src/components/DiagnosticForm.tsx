@@ -2,7 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../lib/supabase";
+import { DiagnosticService } from "../services/DiagnosticService";
+import { AuthService } from "../services/AuthService";
 import { useRouter } from "next/navigation";
 import { Lightbulb, ArrowRight } from "lucide-react";
 
@@ -78,15 +79,10 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
     setErrorMessage(null);
 
     try {
-      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      const { user, error: authError } = await AuthService.getUser();
       if (authError || !user) throw new Error("Você precisa estar logado para fazer o diagnóstico.");
 
-      // 1. Limpeza
-      await supabase.from("diagnosticos_sono").delete().eq("usuario_id", user.id);
-
-      // 2. Salva o Formulário no Banco
       const diagnosticoData = {
-        usuario_id: user.id,
         idade: Number(idade),
         genero: genero,
         objetivo_principal: objetivo,
@@ -102,24 +98,7 @@ export default function DiagnosticForm({ onSuccess }: DiagnosticFormProps) {
         descricao_rotina_detalhada: descricaoLivre || null
       };
 
-      const { data: diagSalvo, error } = await supabase
-        .from("diagnosticos_sono")
-        .insert(diagnosticoData)
-        .select()
-        .single();
-
-      if (error) throw new Error(error.message);
-
-      // 3. Chama a Inteligência Artificial
-      const respostaIA = await fetch("/api/diagnostico", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ diagnosticoId: diagSalvo.id, usuarioId: user.id }),
-      });
-
-      const resultadoIA = await respostaIA.json();
-
-      if (!respostaIA.ok) throw new Error("Falha ao gerar IA: " + resultadoIA.error);
+      await DiagnosticService.saveDiagnosticAndProcess(user.id, diagnosticoData);
 
       // Se passou uma função onSuccess (para recarregar a tela atual), executa ela
       if (onSuccess) {

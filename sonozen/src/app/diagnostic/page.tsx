@@ -2,7 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
+import { AuthService } from "../../services/AuthService";
+import { DiagnosticService } from "../../services/DiagnosticService";
 import Sidebar from "../../components/Sidebar";
 import MobileNav from "../../components/MobileNav";
 import DiagnosticForm from "../../components/DiagnosticForm";
@@ -17,28 +18,17 @@ export default function DiagnosticPage() {
   // Função para buscar se o usuário já tem diagnóstico e os riscos associados
   const fetchDiagnostico = async () => {
     setLoading(true);
-    const { data: { user } } = await supabase.auth.getUser();
+    const { user } = await AuthService.getUser();
     
     if (user) {
       // Busca o diagnóstico principal
-      const { data: diagData } = await supabase
-        .from("diagnosticos_sono")
-        .select("id, score_obtido, classificacao_ia, resumo_ia, atualizado_em, processado_ia")
-        .eq("usuario_id", user.id)
-        .order("criado_em", { ascending: false })
-        .limit(1)
-        .single();
+      const { data: diagData } = await DiagnosticService.getLatestProcessedDiagnostic(user.id);
 
       if (diagData && diagData.processado_ia) {
         setDiagnosticoAtual(diagData);
 
         // Se encontrou o diagnóstico, busca os fatores de risco atrelados a ele
-        const { data: riscosData } = await supabase
-          .from("fatores_risco_detectados")
-          .select("*")
-          .eq("usuario_id", user.id)
-          .eq("diagnostico_id", diagData.id)
-          .order("criado_em", { ascending: true });
+        const { data: riscosData } = await DiagnosticService.getRisks(user.id, diagData.id);
 
         if (riscosData) {
           setRiscos(riscosData);
